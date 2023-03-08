@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Header from 'components/Header'
 import Education from 'components/sections/education'
 import Works from 'components/sections/works'
+import Skills from 'components/sections/skills'
 
 export default function Home() {
   return (
@@ -61,6 +62,8 @@ In addition to technical skills, the program helped me develop critical thinking
           ]}
 
         />
+
+        <Skills />
       </main>
     </>
   )

@@ -20,8 +20,7 @@ svg{
 margin-right:1rem;
 padding:10px;
 border-radius:12px;
-color:#6878AC;
-background:#D9DEEE;
+font-size:64px;
 }
 `;
 const TimeLines = styled.div`

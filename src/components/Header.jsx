@@ -121,6 +121,9 @@ aspect-rato:16/9;
 const ImageSection = styled.div`
 border-radius:20px;
 overflow:hidden;
+max-width: 496px;
+max-height: 692px;
+box-shadow: 2px -1px 14px 11px #2a2c322b;
 img{
     border-radius:inherit;
     width:100%;
