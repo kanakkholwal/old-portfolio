@@ -93,7 +93,7 @@ export default function Works({ workExperiences }) {
 
                 </svg>
 
-                Education
+                Work
             </Heading>
             <TimeLines>
                 {workExperiences?.map(({ duration, orgName, role, description }, index) => {

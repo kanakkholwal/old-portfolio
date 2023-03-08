@@ -29,7 +29,7 @@ export default function Home() {
           }
         />
         <Education
-          education={[
+          educationExperiences={[
 
             {
               duration: "2022 - present",

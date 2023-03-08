@@ -79,7 +79,7 @@ font-size: 1.25rem;
 `;
 
 
-export default function Education({ education }) {
+export default function Education({ educationExperiences }) {
 
 
     return (
@@ -97,10 +97,10 @@ export default function Education({ education }) {
                         </g>
                     </g>
                 </svg>
-                Work
+                Education
             </Heading>
             <TimeLines>
-                {education?.map(({ duration, orgName, degree, description }, index) => {
+                {educationExperiences?.map(({ duration, orgName, degree, description }, index) => {
                     return (
                         <TimeLineBlock key={index} data-duration={duration}>
                             <OrgName>{orgName}</OrgName>
