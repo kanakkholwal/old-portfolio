@@ -18,6 +18,10 @@ margin-bottom:1.5rem;
 line-height: 110%;
 svg{
 margin-right:1rem;
+padding:10px;
+border-radius:12px;
+color:#6878AC;
+background:#D9DEEE;
 }
 `;
 const TimeLines = styled.div`
@@ -51,8 +55,8 @@ margin:0 auto;
     font-size: 1.25rem;
     color:rgba(0,0,0,0.8);
     min-width: 160px;
-  }    box-shadow: 2px -1px 14px 11px #aed7d75e;
-
+  }
+  &:after {
     right: calc(160px + 0.5rem);
     background: rgba(0,0,0,0.1);
     height: 2px;
@@ -62,6 +66,7 @@ margin:0 auto;
   }
   
 `;
+
 
 const OrgName = styled.h4`
 font-weight: 700;
