@@ -1,18 +1,17 @@
 import styled from 'styled-components';
 import { motion } from "framer-motion";
-
+import { NodeJs, JavaScript, Sass, Css, NextJs, Firebase, Figma, ReactJs, Git, Github, Postman, Canva, Typescript, Npm, Bootstrap, Jquery, MongoDB } from 'assets/icons/tech-stack';
 import { VscGraph } from 'react-icons/vsc';
 
 const Section = styled.section`
 position:relative;
-width:clamp(100px, calc(100% - 10px), 1400px);
+width:clamp(100px,calc(100% - 10px),1400px);
 margin:2rem auto;
-background: rgba(209 ,128, 61,0.34);
-background: radial-gradient(circle, rgba(174, 126, 86,0.3) 0%, rgba(209 ,128, 61,0.34) 35%, rgba(174, 126, 86,0.5) 100%);
+background: #ffffff;
 backdrop-filter: blur(10px);
 padding:1.25rem;
 border-radius: 1rem;
-box-shadow: 2px -1px 14px 11px rgb(229 201 179 / 37%);
+box-shadow: 2px -1px 14px 11px #d9d9d9;
 
 `;
 const Heading = styled.h2`
@@ -25,7 +24,7 @@ padding:10px;
 border-radius:12px;
 font-size:64px;
 color:rgba(174, 126, 86, 1);
-background:#ECCFB8;
+background:#d9d9d9;
 }
 `;
 const Svg = styled.svg`
@@ -51,6 +50,14 @@ width: max-content;
 margin:0.5rem 0.75rem;
 --color:#000;
 `;
+const TechStacks = styled.div`
+display:flex;
+gap:3rem;
+align-items: center;
+justify-content: center;
+flex-wrap:wrap;
+padding: 2rem 1rem;
+`;
 
 
 const draw = {
@@ -58,7 +65,7 @@ const draw = {
     visible: ({ percent }, i) => {
         const delay = 1 + i * 0.5;
         return {
-            pathLength: (percent / 100),
+            pathLength: (percent / height),
             opacity: 1,
             transition: {
                 pathLength: { delay, type: "spring", duration: 1.5, bounce: 0 },
@@ -67,7 +74,7 @@ const draw = {
         };
     }
 };
-const CircularSkill = ({ skillName, percent, color, stroke = "#0099ff", size = "120" }) => {
+const CircularSkill = ({ skillName, percent, color, stroke = "#0099ff", size = "height" }) => {
 
 
 
@@ -94,15 +101,32 @@ const CircularSkill = ({ skillName, percent, color, stroke = "#0099ff", size = "
 
 export default function Skills({ }) {
 
-
+    const height = 60;
     return (
         <Section>
             <Heading>
                 <VscGraph />
-                Skills
-
+                Tech Stack
             </Heading>
-
-            <CircularSkill skillName="Javascript" percent={80} color={"#000"} />
+            <TechStacks>
+                <NodeJs height={height} />
+                <JavaScript height={height} />
+                <Sass height={height} />
+                <Css height={height} />
+                <NextJs height={height} />
+                <Firebase height={height} />
+                <Figma height={height} />
+                <ReactJs height={height} />
+                <Git height={height} />
+                <Github height={height} />
+                <Postman height={height} />
+                <Canva height={height} />
+                <Typescript height={height} />
+                <Npm height={height} />
+                <Bootstrap height={height} />
+                <Jquery height={height} />
+                <Typescript height={height} />
+                <MongoDB height={height} />
+            </TechStacks>
         </Section>)
 }
