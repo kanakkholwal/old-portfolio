@@ -104,7 +104,7 @@ const ContentArea = styled.div`
 z-index:2;
 height: inherit;
 max-width: 1720px;
-max-height: 992px;
+// max-height: 992px;
 border-radius:40px;
 display:flex;
 align-items:stretch;
@@ -131,10 +131,12 @@ img{
     max-width: 496px;
     max-height: 692px;
     object-fit:cover;
+    object-position:center;
 }
-flex: none;
+flex: 0 0 auto;
 order: 0;
-flex-grow: 0;
+width: calc(100% - 20px);
+margin:0.5rem;
 `;
 const ContentSection = styled.div`
 flex: 1 1 auto;
@@ -175,6 +177,9 @@ a{
     &:hover:not(.resumeLink){
         background: #52566517;
         color:#2a2626;
+    }
+    &:hover{
+        transform:scale(1.05);
     }
 }
 `;

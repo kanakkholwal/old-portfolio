@@ -36,12 +36,8 @@ export default function Home() {
               duration: "2022 - present",
               orgName: "National Institute of Technology , Hamirpur",
               degree: "B.Tech (Integrated M.Tech)",
-              description: `Throughout the program, I gained a thorough understanding of digital signal processing, microprocessors, communication systems, circuit analysis, and control systems. The curriculum was designed to provide me with a strong foundation in the theoretical principles of electronics and communication, as well as practical skills that I could apply in real-world situations.
-\n
-I had access to state-of-the-art laboratory facilities, where I worked on projects and gained hands-on experience. I also had the opportunity to participate in internships, which allowed me to apply my knowledge and skills in real-world settings.
-\n
-In addition to technical skills, the program helped me develop critical thinking, problem-solving, and analytical skills. I learned to approach problems systematically and creatively, and to think critically about complex issues.
-`            }
+              description: ``
+            }
           ]}
 
         />
@@ -52,12 +48,13 @@ In addition to technical skills, the program helped me develop critical thinking
               duration: "2022 - present",
               orgName: "Textify AI",
               role: "Frontend Web Developer",
-              description: `
-              • Designed and developed dynamic and responsive websites and Chrome extension using HTML, CSS, JavaScript,
-              and ReactJs . \n
-              • Worked with REST APIs to retrieve and display data from databases. \n
-              • Improved website UI and UX and boosted new users by 180%. \n
-              • Improved website performance and speed through optimization techniques by 120%. \n`
+              description: `Developing the UI for user base and admin side`,
+              points: [
+                ` Designed and developed dynamic and responsive websites and Chrome extension using HTML, CSS, JavaScript,
+                 and ReactJs .`,
+                `Worked with REST APIs to retrieve and display data from databases. `,
+                `Improved website UI and UX and boosted new users by 180%. `,
+                ` Improved website performance and speed through optimization techniques by 120%. \n`]
             }
           ]}
 

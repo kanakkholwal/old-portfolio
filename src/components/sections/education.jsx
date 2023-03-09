@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 const Section = styled.section`
 position:relative;
-width:clamp(100px, 100%, 1400px);
+width:clamp(100px, calc(100% - 10px), 1400px);
 margin:2rem auto;
-background: rgb(190,243,234);
-background: radial-gradient(circle, rgba(190,243,234,0.3) 0%, rgba(255,219,236,0.6) 35%, rgba(210,255,247,0.5) 100%);
+background: rgb(210,255,247);
+background: radial-gradient(circle, rgba(190,243,234,0.3) 0%, rgba(210,255,247,0.6) 35%, rgba(210,255,247,0.5) 100%);
 backdrop-filter: blur(10px);
 padding:1.25rem;
 border-radius: 1rem;
@@ -30,40 +30,20 @@ margin:50px auto;
 `;
 const TimeLineBlock = styled.div`
 position: relative;
-list-style:none;
 margin:0 auto;
+`;
 
+const Header = styled.div`
+display:flex;
+flex-wrap: wrap;
+`;
 
-&:last-of-type {
-    padding-bottom: 0;
-    margin-bottom: 0;
-    border: none;
-  }
-
-  &:before,
-  &:after {
-    position: absolute;
-    display: block;
-    top: 5px;
-  }
-  &:before {
-    right:0;
-    content: attr(data-duration);
-    text-align: center;
-    font-weight: 500;
-    font-size: 1.25rem;
-    color:rgba(0,0,0,0.8);
-    min-width: 160px;
-  }
-  &:after {
-    right: calc(160px + 0.5rem);
-    background: rgba(0,0,0,0.1);
-    height: 2px;
-    width:clamp(10px ,60%,500px);
-    content: "";
-    top:20px
-  }
-  
+const Info = styled.div`
+flex : 1 1 auto;
+`;
+const Time = styled.div`
+flex : 1 0 auto;
+text-align: right;
 `;
 
 
@@ -72,14 +52,29 @@ font-weight: 700;
 margin-bottom:0.5rem;
 `;
 const Degree = styled.h5`
-font-weight: 500;
-margin-bottom:1.25rem;
-font-size:1.25rem;
+font-weight: 600;
+font-size: 1.25rem;
+margin-bottom: 1.25rem;
+color: rgba(0,0,0,0.7);
+
 
 `;
 const Description = styled.p`
 font-weight: 400;
 font-size: 1.25rem;
+`;
+const Points = styled.ul`
+font-weight: 400;
+font-size: 1.25rem;
+margin:0.75rem 0.5rem;
+li{
+  &:marker{
+    display:none;
+  }
+  svg{
+    margin-right:0.05rem;
+  }
+}
 `;
 
 
@@ -104,15 +99,22 @@ export default function Education({ educationExperiences }) {
                 Education
             </Heading>
             <TimeLines>
-                {educationExperiences?.map(({ duration, orgName, degree, description }, index) => {
+                {educationExperiences?.map(({ duration, orgName, degree, description, points }, index) => {
                     return (
-                        <TimeLineBlock key={index} data-duration={duration}>
-                            <OrgName>{orgName}</OrgName>
-                            <Degree>{degree}</Degree>
+                        <TimeLineBlock key={index}>
+                            <Header>
+                                <Info>
+                                    <OrgName>{orgName}</OrgName>
+                                    <Degree>{degree}</Degree>
+                                </Info>
+
+                                <Time>{duration}</Time>
+                            </Header>
+
                             <Description>{description}</Description>
+                            {points?.length > 0 ? <Points>{points.map((point, i) => (<li key={i}><BiArrowFromLeft /> {" "}{point}</li>))}</Points> : null}
                         </TimeLineBlock>)
                 })}
-
             </TimeLines>
 
 
