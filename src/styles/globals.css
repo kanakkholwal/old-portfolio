@@ -104,9 +104,15 @@ img,
 svg {
   vertical-align: middle;
 }
-
+img{
+width:100%;
+height:auto;
+user-select:none;
+}
 svg {
   font: inherit;
+  fill:inherit;
+  color: inherit;
 }
 
 body {
@@ -115,6 +121,7 @@ body {
   line-height: 1.667em;
   font-family: 'Euclid Circular A ';
   background: #f6f4f6;
+  color:rgba(0,0,0,0.9);
 }
 
 h1,
