@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "06bdb613-ce5c-4c61-a7f4-2ffc182290c2",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/api/signup",
+    "url": "http://localhost:3000/api/signup",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-03-10T12:08:50.806Z",
+    "modified": "2023-03-10T12:08:50.806Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\":\"kanakkholwal@gmail.com\",\n  \"password\":\"Sociopath00@\",\n  \"name\":\"Kanak\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]

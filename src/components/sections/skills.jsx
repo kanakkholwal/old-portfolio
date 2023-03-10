@@ -109,7 +109,7 @@ export default function Skills({ }) {
                 Tech Stack
             </Heading>
             <TechStacks>
-                <NodeJs height={height} />
+                <NodeJs height={height * 2} />
                 <JavaScript height={height} />
                 <Sass height={height} />
                 <Css height={height} />
@@ -117,7 +117,7 @@ export default function Skills({ }) {
                 <Firebase height={height} />
                 <Figma height={height} />
                 <ReactJs height={height} />
-                <Git height={height} />
+                <Git height={height * 2} />
                 <Github height={height} />
                 <Postman height={height} />
                 <Canva height={height} />
@@ -125,7 +125,6 @@ export default function Skills({ }) {
                 <Npm height={height} />
                 <Bootstrap height={height} />
                 <Jquery height={height} />
-                <Typescript height={height} />
                 <MongoDB height={height} />
             </TechStacks>
         </Section>)

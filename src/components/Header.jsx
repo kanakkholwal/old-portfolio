@@ -192,16 +192,20 @@ export default function Header({ imageSrc, title, description, resumeUrl, social
                 <Patterns />
             </DesignAreaContainer>
         </DesignArea>
-        <ContentArea>
+        <ContentArea itemScope itemType="http://schema.org/Person">
             <ImageSection>
-                <Image src={imageSrc} width={496} height={692} alt='Kanak Kholwal' />
+                <Image src={imageSrc} width={496} height={692} alt={title} itemProp="image" />
             </ImageSection>
             <ContentSection>
                 <Heading>Hi , I'm {title}</Heading>
+                <meta itemProp="name" content={title} />
+                <meta itemProp="alternateName" content={"Kanak"} />
+                <link itemProp="url" href="https://kanakkholwal.eu.org" />
+                <meta itemProp="description" content={description} />
                 <Description>{description}</Description>
                 <LinkList>
                     <Link href={resumeUrl} title={'Resume of ' + title} className='resumeLink' target='_blank'>Resume <FiExternalLink /></Link>
-                    {social?.map(({ name, url }) => (<Link href={url} key={name + url} target='_blank'>{name}</Link>))}
+                    {social?.map(({ name, url }) => (<Link href={url} key={name + url} target='_blank' itemProp="sameAs">{name}</Link>))}
                 </LinkList>
             </ContentSection>
         </ContentArea>
