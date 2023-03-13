@@ -18,7 +18,7 @@ export async function getServerSideProps(context) {
     if (!token) {
         return {
             redirect: {
-                destination: '/',
+                destination: '/admin',
                 permanent: false
             }
         }

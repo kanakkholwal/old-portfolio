@@ -1,24 +1,29 @@
-import Head from 'next/head'
-import { useSession, signOut, signIn, signUp } from 'next-auth/react';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { getSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 
-export default function Home() {
+import AuthForm from 'components/auth/auth-form';
 
-    const { data: session } = useSession()
+function AuthPage() {
+    const [isLoading, setIsLoading] = useState(true);
+    const router = useRouter();
 
-    return (
-        <div >
-            <Head>
-                <title>Basic Auth</title>
-            </Head>
+    // check if logged in and redirect to home page if so
+    useEffect(() => {
+        getSession().then((session) => {
+            if (session) {
+                router.replace('/admin/dashboard');
+            } else {
+                setIsLoading(false);
+            }
+        });
+    }, [router]);
 
-            <main>
-                <h1>Hello {session?.user?.name || "Unknown"}</h1>
-                <Link href="/login">
-                    <button onClick={() => signIn()}>Sign In</button>
-                </Link>
-                <button onClick={() => signOut()}>Sign Out</button>
-            </main>
-        </div>
-    )
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
+
+    return <AuthForm />;
 }
+
+export default AuthPage;
