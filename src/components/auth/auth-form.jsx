@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { signIn } from 'next-auth/react';
+import { getProviders, signIn, getSession, getCsrfToken } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Button from '../buttons';
@@ -176,6 +176,8 @@ function AuthForm() {
 
 
 
+
+
     async function submitHandler(event) {
         event.preventDefault();
 
@@ -188,8 +190,8 @@ function AuthForm() {
             redirect: '/admin/dashboard',
             email: enteredEmail,
             password: enteredPassword,
-        });
-
+        }).then((data) => console.log(data))
+            .catch((error) => console.log(error));
 
 
     }

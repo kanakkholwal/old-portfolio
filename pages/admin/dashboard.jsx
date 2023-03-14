@@ -1,10 +1,13 @@
 import { hasToken } from 'lib/checkUser'
+import AdminPage from 'components/admin/page';
 
 const ProtectedPage = () => {
+
+
     return (
-        <div>
+        <AdminPage>
             This page is protected.
-        </div>
+        </AdminPage>
     )
 }
 
@@ -18,7 +21,7 @@ export async function getServerSideProps(context) {
     if (!token) {
         return {
             redirect: {
-                destination: '/admin',
+                destination: '/admin/login',
                 permanent: false
             }
         }

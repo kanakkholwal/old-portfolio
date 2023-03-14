@@ -2,9 +2,10 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
 
 import User from "models/user";
+import Notification from "models/notification";
 import dbConnect from "lib/dbConnect";
 
-export default NextAuth({
+export const authOptions = {
     // Enable JSON Web Tokens since we will not store sessions in our DB
     session: {
         jwt: true
@@ -22,7 +23,8 @@ export default NextAuth({
             },
             // Authorize callback is ran upon calling the sign-in function
             authorize: async (credentials) => {
-                dbConnect()
+
+                await dbConnect();
 
                 // Try to find the user and also return the password field
                 const user = await User.findOne({ email: credentials.email }).select('+password')
@@ -34,6 +36,13 @@ export default NextAuth({
 
                 if (!pwValid) { throw new Error("Your password is invalid") }
 
+                await Notification.create({
+                    message: "User logged in by email : " + credentials.email + " and name : " + user.name + "",
+                    user: user._id
+                });
+
+
+                // If we get this far, we have a valid user and password
                 return user
             }
 
@@ -63,8 +72,16 @@ export default NextAuth({
             return session
         }
     },
+    site: process.env.NEXTAUTH_URL || "http://localhost:3000/",
     pages: {
         // Here you can define your own custom pages for login, recover password, etc.
-        signIn: '/login', // we are going to use a custom login page (we'll create this in just a second)
+        signIn: '/admin/login', // Displays sign in buttons
+        // signOut: '/auth/sign out',
+        // error: '/auth/error',
+        // verifyRequest: '/auth/verify-request',
+        // newUser: '/auth/new-user'
     },
-})
+}
+export default NextAuth(authOptions)
+
+

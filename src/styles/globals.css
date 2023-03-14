@@ -15,7 +15,7 @@
   --btn-text: #fff;
   --btn-bg: var(--theme);
   --btn-hover-color: #fff;
-  --btn-hover-bg: rgba(0, 150, 204, .897);
+  --btn-hover-bg: rgba(59, 113, 202, .897);
   --btn-box-shadow: var(--theme) 0 4px 9px -4px;
   --btn-border-radius: 0.5rem;
   --btn-line-height: 1.75;
@@ -32,7 +32,7 @@
   --sm-btn-font-size: 0.75rem;
   --sm-btn-line-height: 1.25;
   --btn-primary-text: #fff;
-  --btn-primary-bg: #3b71ca;
+  --btn-primary-bg: rgb(59, 113, 202);
   --btn-primary-box-shadow: 0 4px 9px -4px #3b71ca;
   --btn-primary-hover-color: #fff;
   --btn-primary-hover-bg: #386bc0;
@@ -77,11 +77,148 @@
 }
 
 html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  border: 0;
+  word-wrap: break-word;
+  font-size: 100%;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  vertical-align: baseline
+}
+
+html {
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%
+}
+
+.hide,
+.hidden {
+  display: none !important
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section {
+  display: block
+}
+
+ol,
+ul {
+  list-style: none
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0
+}
+
+caption,
+th,
+td {
+  font-weight: normal;
+  text-align: left
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: ""
+}
+
+blockquote,
+q {
+  quotes: """"
+}
+
+a img {
+  border: 0
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  clear: both;
+  word-wrap: break-word;
+
+}
+
+html,
 body {
-  max-width: 100vw;
+  min-width: 100vw;
   overflow-x: hidden;
   height: 100%;
-
+  line-height: 1.6;
 }
 
 main {
@@ -110,10 +247,15 @@ body {
   font-family: 'Euclid Circular A ';
   font-size: 18px;
   line-height: 1.667em;
-  font-family: 'Euclid Circular A ';
-  background: #f6f4f6;
+  background: #EBEFF3;
   color: rgba(0, 0, 0, 0.9);
 }
+
+code,
+.code {
+  font-family: var(--font-mono);
+}
+
 
 h1,
 h2,

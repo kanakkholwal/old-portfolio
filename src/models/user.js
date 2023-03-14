@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcrypt'
 import validator from 'validator';
+import ProjectsSchema from "./project";
+import EducationSchema from "./education";
+import experienceSchema from "./experience";
+
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -12,13 +16,14 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: [true, "Account already exists"],
-        validate: [validator.isEmail, 'Please enter a valid email']
+        validate: [validator.isEmail, 'Please enter a valid email'],
+        lowercase: true,
     },
     password: {
         type: String,
         required: [true, "Please enter your email"],
         minLength: [6, "Your password must be at least 6 characters long"],
-        select: false, //dont send back password after request
+        select: false, //don't send back password after request
     },
     role: {
         type: String,
@@ -32,10 +37,11 @@ const UserSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: () => Date.now()
     },
-
-
+    projects: [ProjectsSchema],
+    education: [EducationSchema],
+    experience: [experienceSchema],
 });
 
 // ENCRYPTION 
@@ -43,7 +49,7 @@ UserSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
         next()
     }
-    this.password = await bcrypt.hash(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10);
     next()
 })
 
