@@ -79,6 +79,7 @@ export default function Header({ }) {
             document.body.querySelector("#sidenav_panel").classList.add('isOpen');
             document.body.querySelector("#notification_panel").classList.add('isOpen');
             document.body.querySelector("#main_wrapper").classList.add('isNotificationOpen');
+            document.body.querySelector("#main_wrapper").classList.add('isSidenavOpen');
         }
 
     }, [])

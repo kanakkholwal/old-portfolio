@@ -2,20 +2,20 @@ import { hasToken } from 'lib/checkUser'
 import AdminPage from 'components/admin/page';
 import Head from 'next/head';
 
-const ProfilePage = () => {
+const WorkPage = () => {
 
 
     return (
         <AdminPage>
             <Head>
-                <title>Profile</title>
+                <title>Works</title>
             </Head>
-            Edit profile here.
+            Edit Work here.
         </AdminPage>
     )
 }
 
-export default ProfilePage
+export default WorkPage
 
 
 export async function getServerSideProps(context) {

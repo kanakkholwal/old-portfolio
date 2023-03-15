@@ -2,7 +2,7 @@ import { hasToken } from 'lib/checkUser'
 import AdminPage from 'components/admin/page';
 import Head from 'next/head';
 
-const ProfilePage = () => {
+const EducationPage = () => {
 
 
     return (
@@ -10,12 +10,12 @@ const ProfilePage = () => {
             <Head>
                 <title>Profile</title>
             </Head>
-            Edit profile here.
+            Edit Education here.
         </AdminPage>
     )
 }
 
-export default ProfilePage
+export default EducationPage
 
 
 export async function getServerSideProps(context) {

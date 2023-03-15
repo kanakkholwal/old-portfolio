@@ -27,7 +27,7 @@ transform: translateX(-100%);
 }
 
 @media (min-width: 1024px) {
-    &.isOpen~.isSidenavOpen{
+    &.isOpen ~ .isSidenavOpen{
         padding-left:16rem;
     }
 }

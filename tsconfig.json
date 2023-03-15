@@ -19,6 +19,7 @@
       "components/*": ["./src/components/*"],
       "middleware/*": ["./src/middleware/*"],
       "pages/*": ["./pages/*"],
+      "store/*": ["./src/store/*"],
       "assets/*": ["./src/assets/*"],
       "lib/*": ["./src/lib/*"],
       "models/*": ["./src/models/*"]

@@ -2,8 +2,36 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { SessionProvider } from 'next-auth/react'
+import Progress from 'components/progress';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+
+  // const setIsAnimating = useProgressStore((state: any) => state.setIsAnimating);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleStart = () => {
+      setIsAnimating(true);
+    };
+    const handleStop = () => {
+      setIsAnimating(false);
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleStop);
+    router.events.on('routeChangeError', handleStop);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleStop);
+      router.events.off('routeChangeError', handleStop);
+    };
+  }, [router]);
+
   return <>
     <Head>
       <meta charSet="utf-8" />
@@ -49,6 +77,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <meta name="msapplication-config" content="/icons/browserconfig.xml" />
       <meta name="theme-color" content="#2790a2" />
     </Head>
+    <Progress isAnimating={isAnimating} />
     <SessionProvider session={session}>
 
       <Component {...pageProps} />
