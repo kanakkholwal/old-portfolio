@@ -16,26 +16,13 @@ padding: 1.25rem;
 font-weight: 500;
 font-size: 1.2rem;
 transition: all 0.3s ease-in-out;
+transform: translateX(100%);
+&.isOpen{
+    transform: translateX(0);
+}
 
-@media (max-width: 1024px) {
-    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-    transform: translateX(100%);
-    &.isOpen{
-        transform: translateX(0);
-    }
-}
-@media (min-width: 1024px) {
-    
-    &:has(~.notificationPanelOpen){
-        transform: translateX(100%);
-        &.isOpen{
-            transform: translateX(0);
-        }
-    }
-    // &.sideNavOpen {
-    //     padding-left: 0;
-    // }
-}
+
+
 `;
 const CloseButton = styled.button`
 position: absolute;

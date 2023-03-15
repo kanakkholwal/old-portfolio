@@ -3,6 +3,7 @@ import Header from 'components/Header'
 import Education from 'components/sections/education'
 import Works from 'components/sections/works'
 import Skills from 'components/sections/skills'
+import ViewCounter from 'components/viewCounter';
 
 export default function Home() {
 
@@ -46,6 +47,7 @@ export default function Home() {
             ]
           }
         />
+        <ViewCounter slug={"portfolio"} />
         <Education
           educationExperiences={[
 

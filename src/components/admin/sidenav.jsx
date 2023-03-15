@@ -6,6 +6,7 @@ import { GrClose } from "react-icons/gr";
 import { MdLogout } from "react-icons/md";
 import { useRef } from "react";
 
+
 const SideNavWrapper = styled.div`
 position: fixed;
 inset-block: 0;
@@ -20,13 +21,17 @@ padding: 1.25rem;
 font-weight: 500;
 font-size: 1.2rem;
 transition: all 0.3s ease-in-out;
-@media (max-width: 1024px) {
-    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-    transform: translateX(-100%);
-    &.isOpen{
-        transform: translateX(0);
+transform: translateX(-100%);
+&.isOpen{
+    transform: translateX(0);
+}
+
+@media (min-width: 1024px) {
+    &.isOpen~.isSidenavOpen{
+        padding-left:16rem;
     }
 }
+
 
 `;
 const CloseButton = styled.button`
@@ -74,6 +79,13 @@ gap:0.25rem;
 align-items:center;
 justify-content:flex-start;
 width:100%;
+transition: all 0.3s ease-in-out;
+padding: 0.25rem;
+border-radius: 5px;
+
+&:hover,&.active{
+    background-color: rgba(0, 0, 0, 0.1);
+}
 `;
 const LogoutButton = styled.button`
 margin-top:auto;
@@ -85,7 +97,7 @@ text-align:center;
 
 const RecursiveLinkList = ({ links }) => {
 
-    return (<LinkList>{links?.map((item, index) => (<Link as={NavLink} key={index} href={item.path}>{item.title}{item.children?.length > 0 ? <RecursiveLinkList links={item.children} /> : null}</Link>))}</LinkList>)
+    return (<LinkList>{links?.map((item, index) => (<Link as={NavLink} key={index} href={item.path}>{item?.icon}{item.title}{item.children?.length > 0 ? <RecursiveLinkList links={item.children} /> : null}</Link>))}</LinkList>)
 }
 
 export default function SideNav({ links }) {
