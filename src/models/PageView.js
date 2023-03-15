@@ -15,7 +15,7 @@ const PageViewSchema = new mongoose.Schema({
 
 // Creating Visitor Table in visitCounterDB
 PageViewSchema.methods.getVisitors = async function () {
-    return await this.populate('authors');
+    return await this.populate('visitors');
 }
 
 export default mongoose.models.PageView || mongoose.model("PageView", PageViewSchema);
