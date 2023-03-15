@@ -3,6 +3,57 @@ import styled from "styled-components";
 
 
 export const Loader = styled.div`
+
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+  
+  
+  &:after {
+    content: '';
+    display: block;
+    width: ${({ size }) => size || '48px'};
+    height: ${({ size }) => size || '48px'};
+    box-sizing: border-box;
+    margin: 0;
+    border: 2px solid var(--theme);
+    border-right-color: #eee;
+    border-left-color: #eee;
+    border-radius: 100%;
+    animation: spinner .45s infinite linear;
+    transform-origin: center;
+  }
+  
+  @-webkit-keyframes spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+  
+    to {
+      -webkit-transform: rotate(1turn);
+      transform: rotate(1turn);
+    }
+  }
+  
+  @keyframes spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+  
+    to {
+      -webkit-transform: rotate(1turn);
+      transform: rotate(1turn);
+    }
+  }
+`;
+export const PageFullLoader = styled.div`
     transform: rotateZ(45deg);
     perspective: 1000px;
     border-radius: 50%;
@@ -87,4 +138,4 @@ align-items:center;
 `;
 
 
-export const PageLoader = () => (<LoaderWrapper><Loader size="64px" /></LoaderWrapper>)
+export const PageLoader = () => (<LoaderWrapper><PageFullLoader size="64px" /></LoaderWrapper>)

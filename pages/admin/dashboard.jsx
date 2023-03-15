@@ -1,17 +1,21 @@
 import { hasToken } from 'lib/checkUser'
 import AdminPage from 'components/admin/page';
+import Head from 'next/head';
 
-const ProtectedPage = () => {
+const Dashboard = () => {
 
 
     return (
         <AdminPage>
+            <Head>
+                <title>Dashboard</title>
+            </Head>
             This page is protected.
         </AdminPage>
     )
 }
 
-export default ProtectedPage
+export default Dashboard
 
 
 export async function getServerSideProps(context) {

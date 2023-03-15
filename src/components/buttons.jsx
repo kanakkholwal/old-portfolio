@@ -32,12 +32,13 @@ border-radius: ${props => props.rounded ? `10rem` : `var(--btn-border-radius)`};
  --btn-hover-color:var(--btn${"-" + props.nature}-hover-color);
  --btn-hover-bg:var(--btn${"-" + props.nature}-hover-bg);
   ` : ""
-    }
+  }
 
-  &> svg{
+  svg{
   margin-inline: 0.5rem;
   font-size: inherit;
   line-height: inherit;
+  stroke: inherit;
   color: currentColor;
 }
 

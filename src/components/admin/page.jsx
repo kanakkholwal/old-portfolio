@@ -1,5 +1,8 @@
+import { MainWrapper } from "./wrapper";
 import SideNav from "./sidenav";
 import NotificationPanel from "./notification";
+import Header from "./header";
+
 
 
 
@@ -7,9 +10,13 @@ import NotificationPanel from "./notification";
 export default function AdminPage({ children }) {
 
 
-    return (<>
-        <SideNav />
+  return (
+    <>
+      <SideNav />
+      <MainWrapper id="main_wrapper">
+        <Header />
         {children}
-        <NotificationPanel />
+      </MainWrapper>
+      <NotificationPanel />
     </>)
 }

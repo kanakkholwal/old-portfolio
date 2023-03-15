@@ -239,7 +239,8 @@ img {
 
 svg {
   font: inherit;
-  fill: inherit;
+  stroke: currentcolor;
+  fill: currentcolor;
   color: inherit;
 }
 
@@ -303,13 +304,23 @@ p {
 }
 
 small {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.800em
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+strong,
+.strong {
+  font-weight: 700;
+}
+
+span,
+.span {
+  display: inline-block;
 }
 
 @media (prefers-color-scheme: dark) {

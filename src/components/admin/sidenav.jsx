@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import { signOut, useSession } from 'next-auth/react';
 import Button from 'components/buttons';
 import NavLink from 'components/navLink';
+import { GrClose } from "react-icons/gr";
+import { MdLogout } from "react-icons/md";
+import { useRef } from "react";
 
 const SideNavWrapper = styled.div`
 position: fixed;
@@ -9,15 +12,47 @@ inset-block: 0;
 left:0;
 width: 16rem;
 height: 100%;
+display: flex;
+flex-direction: column;
 background-color: #fff;
-box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
 border-right: 1px solid rgba(0, 0, 0, 0.1);
 padding: 1.25rem;
-font-weight: 400;
-font-size: 0.875rem;
+font-weight: 500;
+font-size: 1.2rem;
+transition: all 0.3s ease-in-out;
+@media (max-width: 1024px) {
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+    transform: translateX(-100%);
+    &.isOpen{
+        transform: translateX(0);
+    }
+}
+
 `;
+const CloseButton = styled.button`
+position: absolute;
+left: 5px;
+top: 5px;
+cursor: pointer;
+border-radius: 50%;
+height: 2.5rem;
+width: 2.5rem;
+display: flex;
+align-items: center;
+justify-content: center;
+border: none;
+background-color: transparent;
+transition: all 0.3s ease-in-out;
+&:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+@media (min-width: 1024px) {
+    display: none;
+}
+`;
+
 const SideNavHeader = styled.div`
-padding: 1rem 0.5rem 2rem ;
+padding: 1rem 0.5rem;
 text-align: center;
 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 margin-bottom: 1rem;
@@ -43,6 +78,8 @@ width:100%;
 const LogoutButton = styled.button`
 margin-top:auto;
 width:100%;
+font-size:1.2rem;
+text-align:center;
 `;
 
 
@@ -55,11 +92,14 @@ export default function SideNav({ links }) {
 
     const { data: session } = useSession();
 
+    const sidenavRef = useRef(null);
+
     return (
-        <SideNavWrapper>
-            <SideNavHeader>Hi , {session?.user?.name}</SideNavHeader>
+        <SideNavWrapper id="sidenav_panel" ref={sidenavRef}>
+            <CloseButton onClick={() => sidenavRef.current.classList.toggle('isOpen')}><GrClose /></CloseButton>
+            <SideNavHeader>Hi ,<strong>{session?.user?.name}</strong> </SideNavHeader>
             {links?.length > 0 ? <RecursiveLinkList links={links} /> : null}
-            <LogoutButton as={Button} onClick={() => signOut()}>Sign Out </LogoutButton>
+            <LogoutButton as={Button} onClick={() => signOut()}>Sign Out <MdLogout /> </LogoutButton>
         </SideNavWrapper>
     )
 }
