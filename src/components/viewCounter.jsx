@@ -11,8 +11,10 @@ export default function ViewCounter({ slug, title, userId = 'Anonymous' }) {
     const { data, error } = useSWR(`/api/pages/views/${pageName}?title=${title}`, fetcher)
     const views = new Number(data?.total)
 
-    console.log(data, error);
+
     useEffect(() => {
+        const pageName = slug.split('/').join('_');
+
         const registerView = async () =>
             await fetch(`/api/pages/views/${pageName}`, {
                 headers: {
@@ -24,7 +26,7 @@ export default function ViewCounter({ slug, title, userId = 'Anonymous' }) {
                 })
             })
         registerView()
-    }, [pageName])
+    }, [slug]);
 
-    return `${views > 0 ? views.toLocaleString() : '–'} views`
+    return `${views > 0 ? views.toLocaleString() : `-`} views`
 }

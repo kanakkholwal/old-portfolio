@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import useSWR from 'swr';
-import useSWRImmutable from 'swr/immutable'
+import useFetch from 'hooks/useFetch';
 
 import { Loader } from "components/Loader";
 import { GrClose } from "react-icons/gr";
@@ -59,7 +59,8 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function NotificationPanel() {
 
-    const { data, error, isLoading } = useSWRImmutable("/api/notifications", fetcher)
+    // const { data, error, isLoading } = useSWRImmutable("/api/notifications", fetcher)
+    const { response: data, loading, error } = useFetch(`/api/notifications`)
 
     const notificationPanelRef = useRef(null);
 
@@ -70,7 +71,7 @@ export default function NotificationPanel() {
             <CloseButton onClick={() => notificationPanelRef.current.classList.toggle('isOpen')}><GrClose /></CloseButton>
             <SectionTitle>Notifications</SectionTitle>
             {error && <p>Failed to load notifications</p>}
-            {isLoading && <Loader size="28px" />}
+            {loading && <Loader size="28px" />}
             {data?.message && <p>{data?.message}</p>}
             {data?.notifications?.length > 0 && <p>Showing {data?.notifications?.length} notifications</p>}
             {data?.notifications?.length === 0 && <p>No notifications</p>}

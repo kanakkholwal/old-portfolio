@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import AdminPage from 'components/admin/page';
 import { Card } from 'components/card';
+import { Loader } from 'components/Loader';
 import { Input, Label, FormGroup, FormElement, TextArea } from 'components/form-elements';
 import styled from 'styled-components';
 import Button from 'components/button';
@@ -26,12 +27,13 @@ export default function EditProjectPage({ user }) {
     const router = useRouter();
     const { projectId } = router.query;
 
+    const [loading, setLoading] = useState(true);
 
     const [projectTitle, setProjectTitle] = useState("");
     const [projectData, setProjectData] = useState({
         title: '',
         description: '',
-        image: " hii",
+        image: "  ",
         link: {
             title: "",
             url: ""
@@ -43,21 +45,26 @@ export default function EditProjectPage({ user }) {
 
     useEffect(() => {
         const fetchProject = async () => {
-            await fetch(`/api/admin/projects?userId=${user.id}&projectId=${projectId}`, {
-                method: 'GET',
-                params: {
-                    userId: user.id,
-                    projectId
-                }
-            }).then(res => res.json()
-            ).then(data => {
-                console.log(data);
-                setProjectData(data.project);
-                setProjectTitle(data.project.title);
-            })
+            await fetch(`/api/admin/projects?userId=${user.id}&projectId=${projectId}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.project) {
+                        setProjectData(data.project);
+                        setProjectTitle(data.project.title);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+                .finally(() => {
+                    setLoading(false);
+                })
         }
-        fetchProject();
-    }, [router]);
+        if (projectId && projectId !== "undefined" && projectId !== "null" && user.id && user.id !== "undefined" && user.id !== "null") {
+            fetchProject();
+        }
+
+    }, [projectId, user.id]);
 
     const handleSubmit = async (e) => {
 
@@ -78,12 +85,12 @@ export default function EditProjectPage({ user }) {
             <AdminPage>
                 <Header>
                     <Button as={Link} href="/admin/projects" size="sm" nature="link" ><IoChevronBack /> Go Back</Button>
-                    {projectTitle}
+                    {projectTitle ? `Editing : ` + projectTitle : null}
                 </Header>
-                <Card as="form" onSubmit={handleSubmit}>
+                {loading ? <Loader /> : <Card as="form" onSubmit={handleSubmit}>
                     <FormElement>
                         <Label htmlFor="title">Project Title</Label>
-                        <Input id="title" placeholder="Enter the name of the project..." size="100" value={projectData.title} onChange={(e) => setProjectData({ ...projectData, title: e.target.value, })} />
+                        <Input id="title" placeholder="Enter the name of the project..." size="100" value={projectData?.title} onChange={(e) => setProjectData({ ...projectData, title: e.target.value, })} />
                     </FormElement>
                     <FormElement>
                         <Label htmlFor="description">Project Description</Label>
@@ -121,15 +128,24 @@ export default function EditProjectPage({ user }) {
                     </FormGroup>
                     <FormElement>
                         <Label htmlFor="tags">Tags [Separated by (,)]</Label>
-                        <Input id="tags" placeholder="e-commerce,frontend,etc.." value={projectData.tags.join(",")} onChange={(e) => setProjectData({ ...projectData, tags: e.target.value.split(","), })} />
+                        <Input id="tags" placeholder="e-commerce,frontend,etc.." value={projectData.tags?.join(",")} onChange={(e) => setProjectData({ ...projectData, tags: e.target.value.split(","), })} />
                     </FormElement>
                     <FormGroup>
                         <Button type="submit" nature="primary">Submit Projects</Button>
-                        <Button type="reset" nature="danger">Reset All</Button>
+                        <Button type="reset" nature="danger" onClick={() => setProjectData({
+                            title: '',
+                            description: '',
+                            image: " ",
+                            link: {
+                                title: "",
+                                url: ""
+                            },
+                            github: '',
+                            tags: []
+                        })}>Reset All</Button>
                         <Button as={Link} href="/admin/projects" nature="warning" size="sm">Cancel</Button>
                     </FormGroup>
-                </Card>
-
+                </Card>}
 
             </AdminPage>
         </>)

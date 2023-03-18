@@ -78,9 +78,8 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <meta name="theme-color" content="#2790a2" />
     </Head>
     <Progress isAnimating={isAnimating} />
-    <SessionProvider session={session}>
-
+    <SessionProvider session={session} >
       <Component {...pageProps} />
-
-    </SessionProvider>  </>
+    </SessionProvider>
+  </>
 }

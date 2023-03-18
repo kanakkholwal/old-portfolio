@@ -8,7 +8,12 @@ import dbConnect from "lib/dbConnect";
 export default handler
     .use(isAdminMiddleware)
     .get(async (req, res) => {
-        await dbConnect();
+        try {
+            await dbConnect();
+        }
+        catch (err) {
+            console.log(err);
+        }
 
         const { userId, projectId } = req.query;
 
@@ -32,8 +37,13 @@ export default handler
 
     })
     .post(async (req, res) => {
-        // Update new projects
-        await dbConnect();
+        // Add new projects
+        try {
+            await dbConnect();
+        }
+        catch (err) {
+            console.log(err);
+        }
 
         const { userId, project } = req.body;
 
@@ -61,7 +71,12 @@ export default handler
     })
     .put(async (req, res) => {
         // Update projects
-        await dbConnect();
+        try {
+            await dbConnect();
+        }
+        catch (err) {
+            console.log(err);
+        }
 
         const { userId, project } = req.body;
 
@@ -91,7 +106,6 @@ export default handler
 
         return res.status(200).json({ message: 'Projects fetched Successfully!', project })
     }).delete(async (req, res) => {
-        await dbConnect();
         try {
             await dbConnect();
 

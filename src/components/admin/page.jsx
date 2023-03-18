@@ -55,6 +55,6 @@ export default function AdminPage({ children }) {
           {children}
         </ContentWrapper>
       </MainWrapper>
-      <NotificationPanel />
+      {/* <NotificationPanel /> */}
     </>)
 }

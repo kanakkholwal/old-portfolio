@@ -56,28 +56,28 @@ export default function Header({ }) {
 
     }, [isSidebarLeftOpen]);
 
-    useEffect(() => {
-        let notificationPanel = document.body.querySelector("#notification_panel");
-        let MainPanel = document.body.querySelector("#main_wrapper");
+    // useEffect(() => {
+    //     let notificationPanel = document.body.querySelector("#notification_panel");
+    //     let MainPanel = document.body.querySelector("#main_wrapper");
 
 
 
-        if (!notificationPanel.classList.contains('isOpen')) {
-            notificationPanel.classList.add('isOpen');
-            MainPanel.classList.add('isNotificationOpen')
-        }
-        else {
-            notificationPanel.classList.remove('isOpen');
-            MainPanel.classList.remove('isNotificationOpen')
-        }
+    //     if (!notificationPanel.classList.contains('isOpen')) {
+    //         notificationPanel.classList.add('isOpen');
+    //         MainPanel.classList.add('isNotificationOpen')
+    //     }
+    //     else {
+    //         notificationPanel.classList.remove('isOpen');
+    //         MainPanel.classList.remove('isNotificationOpen')
+    //     }
 
 
-    }, [isSidebarRightOpen]);
+    // }, [isSidebarRightOpen]);
 
     useEffect(() => {
         if (window.matchMedia("(min-width: 1024px)").matches) {
             document.body.querySelector("#sidenav_panel").classList.add('isOpen');
-            document.body.querySelector("#notification_panel").classList.add('isOpen');
+            // document.body.querySelector("#notification_panel").classList.add('isOpen');
             document.body.querySelector("#main_wrapper").classList.add('isNotificationOpen');
             document.body.querySelector("#main_wrapper").classList.add('isSidenavOpen');
         }
