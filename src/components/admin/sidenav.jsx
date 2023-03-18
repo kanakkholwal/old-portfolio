@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { signOut, useSession } from 'next-auth/react';
-import Button from 'components/buttons';
+import Button from 'components/button';
 import NavLink from 'components/navLink';
 import { GrClose } from "react-icons/gr";
 import { MdLogout } from "react-icons/md";
@@ -22,6 +22,7 @@ font-weight: 500;
 font-size: 1.2rem;
 transition: all 0.3s ease-in-out;
 transform: translateX(-100%);
+z-index: 5;
 &.isOpen{
     transform: translateX(0);
 }

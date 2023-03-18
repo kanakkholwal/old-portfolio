@@ -1,4 +1,4 @@
-import { MainWrapper, PageWrapper } from "./wrapper";
+import { MainWrapper, ContentWrapper } from "./wrapper";
 import SideNav from "./sidenav";
 import NotificationPanel from "./notification";
 import Header from "./header";
@@ -51,7 +51,9 @@ export default function AdminPage({ children }) {
       <SideNav links={links} />
       <MainWrapper id="main_wrapper">
         <Header />
-        {children}
+        <ContentWrapper>
+          {children}
+        </ContentWrapper>
       </MainWrapper>
       <NotificationPanel />
     </>)

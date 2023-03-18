@@ -33,7 +33,6 @@ async function getViews(req, res, next) {
 
 }
 async function postViews(req, res, next) {
-    console.log("POST REQUEST");
 
     try {
         await dbConnect();

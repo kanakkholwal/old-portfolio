@@ -4,18 +4,25 @@
   --font-mono: ui-monospace, Menlo, Monaco, 'Fira Code', 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-
-
-  --theme-rgb: 59, 113, 202;
-  --theme: rgb(var(--theme-rgb), 1);
-  --text-rgb: 82, 86, 101;
-  --text-color: rgb(var(--text-rgb), 1);
+  --font-body: 'Euclid Circular A', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --shadow: 0 0 .5rem rgb(0 0 0 / 10%);
+  --theme-opacity: 1;
+  --theme-rgb: 94, 88, 215;
+  --theme: rgba(var(--theme-rgb), var(--theme-opacity));
+  --primary: #3b71ca;
+  --success: #14a44d;
+  --danger: #dc4c64;
+  --info: #54b4d3;
+  --warning: #e4a11b;
+  --text-opacity: 1;
+  --text-rgb: 2, 86, 101;
+  --text-color: rgba(2, 86, 101, var(--theme-opacity));
   --muted-color: rgb(var(--text-rgb), 0.8);
 
   --btn-text: #fff;
-  --btn-bg: var(--theme);
+  --btn-bg: rgba(var(--theme-rgb), 1);
   --btn-hover-color: #fff;
-  --btn-hover-bg: rgba(59, 113, 202, .897);
+  --btn-hover-bg: rgba(var(--theme-rgb), 0.9);
   --btn-box-shadow: var(--theme) 0 4px 9px -4px;
   --btn-border-radius: 0.5rem;
   --btn-line-height: 1.75;
@@ -56,7 +63,27 @@
   --btn-danger-box-shadow: 0 4px 9px -4px #dc4c64;
   --btn-danger-hover-color: #fff;
   --btn-danger-hover-bg: #d1485f;
+  --btn-link-text: rgba(var(--theme-rgb), 0.85);
+  --btn-link-bg: #e0dcf1;
+  --btn-link-box-shadow: none;
+  --btn-link-hover-color: rgba(var(--theme-rgb), 1);
+  --btn-link-hover-bg: #e0dcf1;
 
+  --form-border: transparent;
+  --form-border-active: rgba(var(--theme-rgb), 0.7);
+  --form-label: rgba(0, 0, 0, 0.75);
+  --form-label-active: rgba(var(--theme-rgb), 0.7);
+  --form-bg: #e4eaef;
+  --form-bg-active: #e4eaef;
+  --form-color: rgba(0, 0, 0, 0.8);
+  --form-color-active: rgba(var(--theme-rgb), 0.7);
+  --form-caret: var(--theme);
+  --form-active: var(--theme);
+  --form-helper: #adadb1;
+  --form-checkbox-bg: #fbfbfb;
+  --form-checkbox-border: #ddd;
+  --form-checkbox-shadow: rgba(0, 150, 204, .486);
+  --form-select-bg-active: #ddd;
 }
 
 
@@ -69,11 +96,16 @@
   font-style: normal;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  outline-color: transparent;
+  outline: 0;
+  font-family: var(--font-body);
+
+
 }
 
 html,
@@ -145,7 +177,6 @@ td {
 }
 
 html {
-  overflow-y: scroll;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%
 }
@@ -219,6 +250,9 @@ body {
   overflow-x: hidden;
   height: 100%;
   line-height: 1.6;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--font-body);
 }
 
 main {

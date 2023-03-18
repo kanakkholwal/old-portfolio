@@ -28,6 +28,11 @@ export default handler
 
         const { userId, project } = req.body;
 
+        const { valid, message } = isProjectValid(project);
+        if (valid === false) {
+            return res.status(400).json({ message })
+        }
+
         const user = await User.findById(userId);
 
         if (!user) {
@@ -59,3 +64,34 @@ export default handler
 
 
 
+function isProjectValid(project) {
+
+
+    if (!project.title || project.title.length === 0) {
+        return { valid: false, message: "Title is required" };
+    }
+    if (!project.description || project.description.length === 0) {
+        return { valid: false, message: "Description is required" };
+    }
+    if (!project.link || project.link.length === 0) {
+        return { valid: false, message: "Link is required" };
+    }
+    if (!project.link.title || project.link.title.length === 0) {
+        return { valid: false, message: "Link title is required" };
+    }
+    if (!project.link.url || project.link.url.length === 0) {
+        return { valid: false, message: "Link url is required" };
+    }
+    if (!project.image || project.image.length === 0) {
+        return { valid: false, message: "Image is required" };
+    }
+    if (!project.github || project.github.length === 0) {
+        return { valid: false, message: "Github is required" };
+    }
+    if (!project.tags || project.tags.length === 0) {
+        return { valid: false, message: "Tags are required" };
+    }
+
+
+    return { valid: true, message: "Project is valid" };
+}

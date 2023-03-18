@@ -11,6 +11,11 @@ padding-inline: 0;
         padding-right:16rem;
     }
 }
+`;
+export const ContentWrapper = styled.div`
+width: 100%;
+height: 100%;
+padding: 2rem 1rem;
 
 `;
 // export const PageWrapper = styled.div`

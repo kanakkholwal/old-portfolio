@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { getProviders, signIn, getSession, getCsrfToken } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import Button from '../buttons';
+import Button from '../button';
 
 // This goes to our signup API endpoint
 async function createUser(email, password) {
