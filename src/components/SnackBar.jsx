@@ -11,6 +11,11 @@ export default function SnackBar({ Message, ActionName, ActionFunction, open }) 
     useEffect(() => {
         SetOpen(open)
     }, [open]);
+    useEffect(() => {
+        setTimeout(() => {
+            SetOpen(false);
+        }, 2000);
+    }, []);
 
     return (
         <div className={"SnackBarContainer"}>

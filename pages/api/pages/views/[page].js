@@ -18,7 +18,7 @@ async function getViews(req, res, next) {
         let pageView = await PageView.findOne({ page });
 
         if (!pageView) {
-            pageView = await PageView.create({ title, page, count: 1 });
+            pageView = await PageView.create({ title: title || "unknown page", page, count: 1 });
 
             return res.status(200).json({ message: "Page added to DB", total: pageView.count })
         }
@@ -43,13 +43,13 @@ async function postViews(req, res, next) {
         let pageView = await PageView.findOne({ page });
 
         if (!pageView) {
-            pageView = await PageView.create({ title, page, count: 1, visitors: [userId || "Anonymous"] });
+            pageView = await PageView.create({ title: title || "unknown page", page, count: 1, visitors: [userId || "Anonymous"] });
 
             return res.status(200).json({ message: "Page added to DB", total: pageView.count, type: userId ? "Authenticated" : "Anonymous" })
         }
 
-        pageView.count = pageView.count + 1;
-        pageView.visitors = [...pageView.visitors, userId || "Anonymous"];
+        pageView.count += 1;
+        pageView.visitors.push(userId || "Anonymous")
 
         await pageView.save();
 

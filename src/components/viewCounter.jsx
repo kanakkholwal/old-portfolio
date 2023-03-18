@@ -22,7 +22,7 @@ export default function ViewCounter({ slug, title, userId = 'Anonymous' }) {
                 },
                 method: 'POST',
                 body: JSON.stringify({
-                    title, userId
+                    title: title || "unknown page", userId
                 })
             })
         registerView()
