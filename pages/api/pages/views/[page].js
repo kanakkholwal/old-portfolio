@@ -15,6 +15,9 @@ async function getViews(req, res, next) {
         const { page, title } = req.query;
 
 
+        if (!page)
+            return res.status(400).json({ error: "Bad request", message: "Page name is required" })
+
         let pageView = await PageView.findOne({ page });
 
         if (!pageView) {
@@ -28,7 +31,7 @@ async function getViews(req, res, next) {
     } catch (error) {
 
         console.log(error);
-        return res.status(500).json({ error: "Internal server error", message: error.message });
+        return res.status(500).json({ error: "Internal server error while getting views", message: error.message });
     }
 
 }
@@ -58,7 +61,7 @@ async function postViews(req, res, next) {
     } catch (error) {
 
         console.log(error);
-        return res.status(500).json({ error: "Internal server error", message: error.message });
+        return res.status(500).json({ error: "Internal server error while registering view", message: error.message });
     }
 
 }
