@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import useSWR from 'swr';
+import useFetch from 'hooks/useFetch';
 
 async function fetcher(...args) {
     const res = await fetch(...args)
@@ -8,7 +8,7 @@ async function fetcher(...args) {
 
 export default function ViewCounter({ slug, title, userId = 'Anonymous' }) {
     const pageName = slug.split('/').join('_');
-    const { data, error } = useSWR(`/api/pages/views/${pageName}?title=${title}`, fetcher)
+    const { response: data, error } = useFetch(`/api/pages/views/${pageName}?title=${title || "unknown page"}`);
     const views = new Number(data?.total)
 
 
@@ -25,7 +25,7 @@ export default function ViewCounter({ slug, title, userId = 'Anonymous' }) {
                     title: title || "unknown page", userId
                 })
             })
-        registerView()
+        registerView();
     }, [slug]);
 
     return `${views > 0 ? views.toLocaleString() : `-`} views`
