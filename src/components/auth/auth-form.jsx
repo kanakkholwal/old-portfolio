@@ -1,8 +1,8 @@
-import { useState, useRef } from 'react';
-import { getProviders, signIn, getSession, getCsrfToken } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import { useRef } from 'react';
+import { signIn } from 'next-auth/react';
 import styled from 'styled-components';
-import Button from '../button';
+import Button from 'components/button';
+import { Input, FormElement, Label, FormHelper } from 'components/form-elements';
 
 // This goes to our signup API endpoint
 async function createUser(email, password) {
@@ -82,92 +82,8 @@ display: flex;
 align-items: center;
 flex-direction: column;
 `;
-const Input = styled.input`
-letter-spacing: 0.1em;
-width: 100 %;
-opacity: 0.95;
-margin-bottom: 1.5rem;
-font-weight: 500;
-font-size: 1.25rem;
-color: rgba(0, 0, 0, 0.95);
-transition: all .2s linear;
-border-radius: 0.5rem;
-padding: calc(0.33rem + 1px) calc(0.75rem + 1px);
-
-border: ${props => props.outlined ? "2px" : "1px"} solid  #F1F1F1;
-background: #F1F1F1;
 
 
-&::placeholder {
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.5);
-}
-
-
-&:focus {
-    border-color:#05A7B1;
-}
-`;
-const Label = styled.label`
-margin-bottom: 0.25rem;
-padding-left: 0.25rem;
-font-weight: 500;
-font-size: 1.25rem;
-color: rgba(0, 0, 0, 0.8);
-`;
-const FormHelper = styled.div`
-font-weight: 300;
-margin: 0.25rem auto;
-margin-left: 0.25rem;
-text-align: left;
-color:${props => props.error ? "#dc4c64" : "#eee"};
-svg{
-    margin-inline: 0.25rem;
-}
-`;
-const FormElement = styled.div`
-
-display: flex;
-align-items: flex-start;
-flex-direction: column;
-margin: 0.25rem auto .25rem;
-width: clamp(calc(100% - 10px), 100%, 35rem);
-
-${FormHelper} {
-    order: 3;
-}
-  &: has(${FormHelper}){
-    &> ${Input},&> textarea{
-        margin-bottom: 0
-    }
-}
-${Label},label {
-    order: 1;
-    display: flex;
-}
-
-${Input},
-textarea, input, select {
-    order: 2;
-    display: flex;
-}
-`;
-const ActionButton = styled.button`
-background: var(--theme);
-padding: 1rem 1.75rem;
-border-radius: 15px;
-font-weight: 600;
-font-size: 1.5rem;
-width: 100%;
-margin: 0.5rem auto;
-text-align: center;
-letter-spacing: 0.065em;
-color: #FFFFFF;
-svg{
-    font-weight: 600;
-    font-size: 1.5rem;
-}
-`;
 // This gets handled by the [...nextauth] endpoint
 function AuthForm() {
     const emailInputRef = useRef();
