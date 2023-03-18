@@ -1,19 +1,25 @@
 import handler from 'lib/handler';
 import PageView from "models/PageView";
+import dbConnect from "lib/dbConnect";
 
 
 
 handler.get(getViews).post(postViews);
 
 async function getViews(req, res, next) {
+
+
+
     try {
-        const { page } = req.query;
+        await dbConnect();
+        const { page, title } = req.query;
+
 
         let pageView = await PageView.findOne({ page });
 
         if (!pageView) {
-            pageView = new PageView({ page: page, count: 1 });
-            await pageView.save();
+            pageView = await PageView.create({ title, page, count: 1 });
+
             return res.status(200).json({ message: "Page added to DB", total: pageView.count })
         }
         else
@@ -27,19 +33,24 @@ async function getViews(req, res, next) {
 
 }
 async function postViews(req, res, next) {
+    console.log("POST REQUEST");
+
     try {
-        const { page, userId } = req.query;
+        await dbConnect();
+
+        const { page } = req.query;
+        const { title, userId } = req.body;
 
         let pageView = await PageView.findOne({ page });
 
         if (!pageView) {
-            pageView = new PageView({ page: page, count: 1, visitors: [userId ?? "Anonymous"] });
-            await pageView.save();
+            pageView = await PageView.create({ title, page, count: 1, visitors: [userId || "Anonymous"] });
+
             return res.status(200).json({ message: "Page added to DB", total: pageView.count, type: userId ? "Authenticated" : "Anonymous" })
         }
 
         pageView.count = pageView.count + 1;
-        pageView.visitors = [(userId ?? "Anonymous"), ...pageView.visitors];
+        pageView.visitors = [...pageView.visitors, userId || "Anonymous"];
 
         await pageView.save();
 

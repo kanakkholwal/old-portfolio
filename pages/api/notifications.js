@@ -1,6 +1,7 @@
 import handler from 'lib/handler';
 import { isAdminMiddleware } from 'middleware/checkUser';
 import Notification from "models/notification";
+import dbConnect from "lib/dbConnect";
 
 
 
@@ -9,6 +10,8 @@ handler
     .get(getNotifications)
 
 async function getNotifications(req, res, next) {
+    await dbConnect();
+
     try {
         const notifications = await Notification.find({});
 

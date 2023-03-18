@@ -18,7 +18,7 @@
       "@/*": ["./src/*"],
       "components/*": ["./src/components/*"],
       "middleware/*": ["./src/middleware/*"],
-      "pages/*": ["./pages/*"],
+      "pages/*": ["./src/pages/*"],
       "store/*": ["./src/store/*"],
       "assets/*": ["./src/assets/*"],
       "lib/*": ["./src/lib/*"],

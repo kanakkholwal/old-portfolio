@@ -47,7 +47,7 @@ export default function Home() {
             ]
           }
         />
-        <ViewCounter slug={"portfolio"} />
+        <ViewCounter slug={"portfolio"} title="Portfolio" />
         <Education
           educationExperiences={[
 

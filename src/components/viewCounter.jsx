@@ -6,17 +6,23 @@ async function fetcher(...args) {
     return res.json()
 }
 
-export default function ViewCounter({ slug }) {
+export default function ViewCounter({ slug, title, userId = 'Anonymous' }) {
     const pageName = slug.split('/').join('_');
-    const { data } = useSWR(`/api/pages/views/${pageName}`, fetcher)
+    const { data, error } = useSWR(`/api/pages/views/${pageName}?title=${title}`, fetcher)
     const views = new Number(data?.total)
 
+    console.log(data, error);
     useEffect(() => {
-        const registerView = () =>
-            fetch(`/api/pages/views/${pageName}`, {
+        const registerView = async () =>
+            await fetch(`/api/pages/views/${pageName}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 method: 'POST',
+                body: JSON.stringify({
+                    title, userId
+                })
             })
-
         registerView()
     }, [pageName])
 
