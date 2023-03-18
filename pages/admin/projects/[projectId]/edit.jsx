@@ -1,15 +1,15 @@
+import axios from 'axios';
 import { hasToken, getUser } from 'lib/checkUser'
-import ProjectPage from 'pages/admin/projects';
+import EditProjectPage from 'pages/admin/editProject';
 
 
-export default ProjectPage
+export default EditProjectPage
 
 
 export async function getServerSideProps(context) {
 
     const token = await hasToken(context.req);
 
-    const user = await getUser(context.req);
     if (!token) {
         return {
             redirect: {
@@ -18,10 +18,13 @@ export async function getServerSideProps(context) {
             }
         }
     }
+    const user = await getUser(context.req);
+
+
+
 
     return {
-        props: {
-            user
-        }
+        props: { user },
+
     }
 }

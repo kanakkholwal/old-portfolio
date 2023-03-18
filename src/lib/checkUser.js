@@ -19,6 +19,13 @@ export const isAdmin = async (req) => {
     }
     return true
 }
+export const getUser = async (req) => {
+    const token = await getToken({ req, secret })
+    if (!token || !token.user) {
+        return null
+    }
+    return token.user
+}
 
 // API MIDDLEWARE
 export const hasTokenMiddleware = async (req, res, next) => {

@@ -6,9 +6,9 @@ import styled from 'styled-components';
 import Button from 'components/button';
 import Link from 'next/link';
 import { IoChevronBack } from 'react-icons/io5';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router'
 
 
 const Header = styled.div`
@@ -22,9 +22,12 @@ margin-bottom: 1rem;
 `;
 
 
-export default function AddProjectPage() {
-    const { data: session } = useSession();
+export default function EditProjectPage({ user }) {
+    const router = useRouter();
+    const { projectId } = router.query;
 
+
+    const [projectTitle, setProjectTitle] = useState("");
     const [projectData, setProjectData] = useState({
         title: '',
         description: '',
@@ -38,13 +41,31 @@ export default function AddProjectPage() {
     })
 
 
+    useEffect(() => {
+        const fetchProject = async () => {
+            await fetch(`/api/admin/projects?userId=${user.id}&projectId=${projectId}`, {
+                method: 'GET',
+                params: {
+                    userId: user.id,
+                    projectId
+                }
+            }).then(res => res.json()
+            ).then(data => {
+                console.log(data);
+                setProjectData(data.project);
+                setProjectTitle(data.project.title);
+            })
+        }
+        fetchProject();
+    }, [router]);
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
 
-        console.log(projectData, session.user.id);
 
-        const response = await axios.post('/api/admin/projects', { userId: session.user.id, project: projectData })
+        const response = await axios.put('/api/admin/projects', { userId: user.id, project: projectData });
+
         console.log(response);
     }
 
@@ -52,11 +73,12 @@ export default function AddProjectPage() {
     return (
         <>
             <Head>
-                <title>Add Project</title>
+                <title>Add Project </title>
             </Head>
             <AdminPage>
                 <Header>
                     <Button as={Link} href="/admin/projects" size="sm" nature="link" ><IoChevronBack /> Go Back</Button>
+                    {projectTitle}
                 </Header>
                 <Card as="form" onSubmit={handleSubmit}>
                     <FormElement>

@@ -1,5 +1,7 @@
 import styled from "styled-components"
-import useSWR from 'swr'
+import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable'
+
 import { Loader } from "components/Loader";
 import { GrClose } from "react-icons/gr";
 import { useRef } from "react";
@@ -57,7 +59,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function NotificationPanel() {
 
-    const { data, error, isLoading } = useSWR("/api/notifications", fetcher)
+    const { data, error, isLoading } = useSWRImmutable("/api/notifications", fetcher)
 
     const notificationPanelRef = useRef(null);
 
