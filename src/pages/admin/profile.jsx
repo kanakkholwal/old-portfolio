@@ -3,11 +3,11 @@ import Head from 'next/head';
 import styled from 'styled-components';
 import Button from 'components/button';
 import Alert from 'components/alert';
-import {Loader} from 'components/Loader';
+import { Loader } from 'components/Loader';
 import { Card } from 'components/card';
 import axios from 'axios';
-import {useState} from 'react';
-import { FileInput, FormElement, Label, Input ,FormGroup} from 'components/form-elements';
+import { useState } from 'react';
+import { FileInput, FormElement, Label, Input, FormGroup } from 'components/form-elements';
 
 const Header = styled.div`
 padding: 1rem;
@@ -83,7 +83,49 @@ export default function ProfilePage({ user: CurrentUser }) {
             handleFiles(files);
         }
     }
-  
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        console.log(user);
+
+        setState({ ...state, loading: true });
+        try {
+            await axios.put('/api/auth/update', { user })
+                .then(res => {
+                    console.log(res);
+                    if (res.data.success) {
+                        setState({
+                            alert: {
+                                open: true,
+                                message: "User updated successfully",
+                                type: "success"
+                            }, loading: false
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err);
+                    setState({
+                        alert: {
+                            open: true,
+                            message: err?.message || "Something went wrong",
+                            type: "danger"
+                        }, loading: false
+                    });
+
+                })
+        }
+        catch (err) {
+            console.log(err);
+            setState({
+                alert: {
+                    open: true,
+                    message: err?.message || "Something went wrong",
+                    type: "danger"
+                }, loading: false
+            });
+        }
+    }
+
     return (
         <AdminPage>
             <Head>
@@ -91,7 +133,7 @@ export default function ProfilePage({ user: CurrentUser }) {
             </Head>
             <Header>
                 Edit your profile here
-                <Button size="sm" nature="link">Save Profile</Button>
+                <Button size="sm" nature="link" onClick={handleSubmit}>Save Profile</Button>
             </Header>
             <Card>
                 <FormElement>
@@ -119,9 +161,9 @@ export default function ProfilePage({ user: CurrentUser }) {
                 </FormElement>
 
                 <FormGroup>
-                        <Alert nature={state.alert.type} open={state.alert.open}>{state.alert.message}</Alert>
-                        {state.loading ? <Loader /> : null}
-                        </FormGroup>
+                    <Alert nature={state.alert.type} open={state.alert.open}>{state.alert.message}</Alert>
+                    {state.loading ? <Loader /> : null}
+                </FormGroup>
             </Card>
         </AdminPage>)
 }

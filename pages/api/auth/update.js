@@ -10,21 +10,32 @@ export default async function handler(req, res) {
     if (req.method === "PUT") {
 
 
+        if (!user.id)
+            return res.status(401).json({
+                message: 'User Id is required',
+            })
         try {
+            const currentUser = await User.findById(user.id);
 
-            const user = await User.findbyId(user.id);
-
-            if (!user) {
+            if (!currentUser) {
                 return res.status(401).json({
-                    message: 'Email is not registered',
+                    message: 'User not found',
                 })
             }
+            currentUser.profileURl = user.profileURl;
+            currentUser.name = user.name;
+            currentUser.save();
 
-           
+            return res.json({
+                message: 'User updated successfully ',
+                user: user
+            })
+
+
 
         } catch (error) {
             return res.status(401).json({
-                message: 'Authentication failed',
+                message: error.message || " Something went wrong",
             })
         }
     } else {

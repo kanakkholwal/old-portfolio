@@ -3,7 +3,6 @@ import { signOut, useSession } from 'next-auth/react';
 import Button from 'components/button';
 import NavLink from 'components/navLink';
 import { GrClose } from "react-icons/gr";
-import { BsPersonCheck } from "react-icons/bs";
 import { FiHome } from "react-icons/fi";
 import { MdLogout } from "react-icons/md";
 import { useRef } from "react";
@@ -115,8 +114,7 @@ export default function SideNav({ links }) {
             <CloseButton onClick={() => sidenavRef.current.classList.toggle('isOpen')}><GrClose /></CloseButton>
             <SideNavHeader>
                 <ProfileCard user={session?.user} />
-                Hi ,<strong>{session?.user?.name}</strong>
-                <BsPersonCheck />
+                {/* Hi ,<strong>{session?.user?.name}</strong> */}
             </SideNavHeader>
             <Link as={HomeLink} href="/">  <FiHome />Home</Link>
             {links?.length > 0 ? <RecursiveLinkList links={links} /> : null}
