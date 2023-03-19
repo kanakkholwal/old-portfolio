@@ -1,4 +1,4 @@
-import { hasToken } from 'lib/checkUser'
+import { hasToken, getUser } from 'lib/checkUser'
 import ProfilePage from 'pages/admin/profile';
 
 
@@ -6,9 +6,10 @@ import ProfilePage from 'pages/admin/profile';
 export default ProfilePage
 
 
+
 export async function getServerSideProps(context) {
 
-    const token = await hasToken(context.req)
+    const token = await hasToken(context.req);
 
     if (!token) {
         return {
@@ -18,6 +19,13 @@ export async function getServerSideProps(context) {
             }
         }
     }
+    const user = await getUser(context.req);
 
-    return { props: {} }
+
+
+
+    return {
+        props: { user },
+
+    }
 }

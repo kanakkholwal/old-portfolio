@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import AdminPage from 'components/admin/page';
+import DragAndDrop from 'components/drag-and-drop';
+import Alert from 'components/alert';
 import { Card } from 'components/card';
 import { Loader } from 'components/Loader';
 import { Input, Label, FormGroup, FormElement, TextArea } from 'components/form-elements';
@@ -24,13 +26,25 @@ margin-bottom: 1rem;
 
 
 export default function EditProjectPage({ user }) {
+
     const router = useRouter();
     const { projectId } = router.query;
 
     const [loading, setLoading] = useState(true);
 
+    const [state, setState] = useState({
+        loading: false,
+
+        alert: {
+            open: false,
+            message: "",
+            type: ""
+        }
+    });
+
     const [projectTitle, setProjectTitle] = useState("");
     const [projectData, setProjectData] = useState({
+        _id: projectId,
         title: '',
         description: '',
         image: "  ",
@@ -45,20 +59,28 @@ export default function EditProjectPage({ user }) {
 
     useEffect(() => {
         const fetchProject = async () => {
-            await fetch(`/api/admin/projects?userId=${user.id}&projectId=${projectId}`)
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.project) {
-                        setProjectData(data.project);
-                        setProjectTitle(data.project.title);
-                    }
-                }).catch(err => {
-                    console.log(err);
-                })
-                .finally(() => {
-                    setLoading(false);
-                })
+            try {
+
+
+                await fetch(`/api/admin/projects?userId=${user.id}&projectId=${projectId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.project) {
+                            setProjectData(data.project);
+                            setProjectTitle(data.project.title);
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    })
+            }
+            catch (err) {
+                console.log(err);
+            }
+
         }
         if (projectId && projectId !== "undefined" && projectId !== "null" && user.id && user.id !== "undefined" && user.id !== "null") {
             fetchProject();
@@ -66,21 +88,120 @@ export default function EditProjectPage({ user }) {
 
     }, [projectId, user.id]);
 
-    const handleSubmit = async (e) => {
 
-        e.preventDefault();
+    const handleFiles = async (files) => {
+        setState({ ...state, loading: true });
+
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
+        formData.append('folder', process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER);
 
 
-        const response = await axios.put('/api/admin/projects', { userId: user.id, project: projectData });
+        // upload image to cloudinary and get url
+        await axios(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+            method: 'POST',
+            data: formData
+        }).then(res => {
+            const file = res.data;
+            // console.log(file);
+            setProjectData({ ...projectData, image: file.secure_url });
+            setState({
+                alert: {
+                    open: true,
+                    message: "Image uploaded successfully",
+                    type: "success"
+                }, loading: false
+            });
+        }).catch(err => {
+            console.log(err);
+            setState({
+                alert: {
+                    open: true,
+                    message: err?.message || "Something went wrong",
+                    type: "danger"
+                }, loading: false
+            });
 
-        console.log(response);
+        })
+
+
+
+
+
     }
+
+
+    const handleChange = async (event) => {
+        const { files } = event.target;
+
+        if (files && files.length) {
+            console.log(files);
+            handleFiles(files);
+        }
+    }
+
+    const handleDrop = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const { files } = e.dataTransfer
+
+        if (files && files.length) {
+            console.log(files);
+            handleFiles(files);
+        }
+    }
+
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setState({ ...state, loading: true });
+        try {
+            await axios.put('/api/admin/projects', { userId: user.id, project: projectData })
+                .then(res => {
+                    console.log(res);
+                    if (res.data.success) {
+                        setState({
+                            alert: {
+                                open: true,
+                                message: "Project updated successfully",
+                                type: "success"
+                            }, loading: false
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err);
+                    setState({
+                        alert: {
+                            open: true,
+                            message: err?.message || "Something went wrong",
+                            type: "danger"
+                        }, loading: false
+                    });
+
+                })
+        }
+        catch (err) {
+            console.log(err);
+            setState({
+                alert: {
+                    open: true,
+                    message: err?.message || "Something went wrong",
+                    type: "danger"
+                }, loading: false
+            });
+        }
+
+    }
+
 
 
     return (
         <>
             <Head>
-                <title>Add Project </title>
+                <title>Edit Project </title>
             </Head>
             <AdminPage>
                 <Header>
@@ -94,7 +215,12 @@ export default function EditProjectPage({ user }) {
                     </FormElement>
                     <FormElement>
                         <Label htmlFor="description">Project Description</Label>
-                        <TextArea id="description" placeholder="Enter the description of the project..." value={projectData.description} onChange={(e) => setProjectData({ ...projectData, description: e.target.value })} />
+                        <TextArea id="description" rows={8} placeholder="Enter the description of the project..." value={projectData.description} onChange={(e) => setProjectData({ ...projectData, description: e.target.value })} />
+                    </FormElement>
+                    <FormElement>
+                        <DragAndDrop onChange={handleChange} onDrop={handleDrop} />
+                        <Label htmlFor="image_url">Project Image Url</Label>
+                        <Input id="image_url" placeholder="Enter the Thumbnail url or upload any valid image" value={projectData.image} onChange={(e) => setProjectData({ ...projectData, image: e.target.value, })} />
                     </FormElement>
                     <FormGroup>
                         <FormElement>
@@ -131,6 +257,8 @@ export default function EditProjectPage({ user }) {
                         <Input id="tags" placeholder="e-commerce,frontend,etc.." value={projectData.tags?.join(",")} onChange={(e) => setProjectData({ ...projectData, tags: e.target.value.split(","), })} />
                     </FormElement>
                     <FormGroup>
+                        <Alert nature={state.alert.type} open={state.alert.open}>{state.alert.message}</Alert>
+                        {state.loading ? <Loader /> : null}
                         <Button type="submit" nature="primary">Submit Projects</Button>
                         <Button type="reset" nature="danger" onClick={() => setProjectData({
                             title: '',

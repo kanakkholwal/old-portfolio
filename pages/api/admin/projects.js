@@ -104,7 +104,7 @@ export default handler
             return res.status(400).json({ message: 'Project id is required!' })
 
 
-        return res.status(200).json({ message: 'Projects fetched Successfully!', project })
+        return res.status(200).json({ message: 'Projects updated Successfully!', project })
     }).delete(async (req, res) => {
         try {
             await dbConnect();

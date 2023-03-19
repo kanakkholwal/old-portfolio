@@ -19,7 +19,7 @@
   --text-color: rgba(2, 86, 101, var(--theme-opacity));
   --muted-color: rgb(var(--text-rgb), 0.8);
   --badge-text: #fbfbfb;
-
+  --border-color: #eee;
   --btn-text: #fff;
   --btn-bg: rgba(var(--theme-rgb), 1);
   --btn-hover-color: #fff;

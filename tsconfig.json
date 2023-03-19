@@ -26,6 +26,6 @@
       "models/*": ["./src/models/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/drag-and-drop.jsx", ],
   "exclude": ["node_modules"]
 }

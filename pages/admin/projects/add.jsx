@@ -1,4 +1,4 @@
-import { hasToken } from 'lib/checkUser'
+import { hasToken, getUser } from 'lib/checkUser'
 import AddProjectPage from 'pages/admin/addProject';
 
 
@@ -17,6 +17,13 @@ export async function getServerSideProps(context) {
             }
         }
     }
+    const user = await getUser(context.req);
 
-    return { props: {} }
+
+
+
+    return {
+        props: { user },
+
+    }
 }

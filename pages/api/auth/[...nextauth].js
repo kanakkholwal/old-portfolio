@@ -60,6 +60,7 @@ export const authOptions = {
                     email: user.email,
                     name: user.name,
                     role: user.role,
+                    profileCard: user.profileCard,
                 }
             }
             return token

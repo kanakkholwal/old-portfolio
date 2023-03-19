@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import AdminPage from 'components/admin/page';
+import DragAndDrop from 'components/drag-and-drop';
+import Alert from 'components/alert';
 import { Card } from 'components/card';
 import { Input, Label, FormGroup, FormElement, TextArea } from 'components/form-elements';
 import styled from 'styled-components';
@@ -9,7 +11,6 @@ import { IoChevronBack } from 'react-icons/io5';
 import { useState } from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
-
 
 const Header = styled.div`
 padding: 1rem;
@@ -22,31 +23,80 @@ margin-bottom: 1rem;
 `;
 
 
-export default function AddProjectPage() {
-    const { data: session } = useSession();
+export default function AddProjectPage({ user }) {
+
+    const [state, setState] = useState({
+        loading: false,
+
+        alert: {
+            open: false,
+            message: "",
+            type: ""
+        }
+    });
+
 
     const [projectData, setProjectData] = useState({
         title: '',
         description: '',
-        image: " hii",
+        image: "",
         link: {
             title: "",
             url: ""
         },
         github: '',
         tags: []
-    })
+    });
+
+
+    const handleFiles = async (files) => {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
+        formData.append('folder', process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER);
+
+
+        // upload image to cloudinary and get url
+        const res = await axios(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+            method: 'POST',
+            data: formData
+        });
+        const file = await res.data;
+        // console.log(file);
+        setProjectData({ ...projectData, image: file.secure_url });
+
+    }
+
+
+    const handleChange = async (event) => {
+        const { files } = event.target;
+
+        if (files && files.length) {
+            console.log(files);
+            handleFiles(files);
+        }
+    }
+
+    const handleDrop = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const { files } = e.dataTransfer
+
+        if (files && files.length) {
+            console.log(files);
+            handleFiles(files);
+        }
+    }
+
 
 
     const handleSubmit = async (e) => {
-
         e.preventDefault();
-
-        console.log(projectData, session.user.id);
-
-        const response = await axios.post('/api/admin/projects', { userId: session.user.id, project: projectData })
+        const response = await axios.post('/api/admin/projects', { userId: user.id, project: projectData })
         console.log(response);
     }
+
 
 
     return (
@@ -65,7 +115,12 @@ export default function AddProjectPage() {
                     </FormElement>
                     <FormElement>
                         <Label htmlFor="description">Project Description</Label>
-                        <TextArea id="description" placeholder="Enter the description of the project..." value={projectData.description} onChange={(e) => setProjectData({ ...projectData, description: e.target.value })} />
+                        <TextArea id="description" rows={8} placeholder="Enter the description of the project..." value={projectData.description} onChange={(e) => setProjectData({ ...projectData, description: e.target.value })} />
+                    </FormElement>
+                    <FormElement>
+                        <DragAndDrop onChange={handleChange} onDrop={handleDrop} />
+                        <Label htmlFor="image_url">Project Image Url</Label>
+                        <Input id="image_url" placeholder="Enter the Thumbnail url or upload any valid image" value={projectData.image} onChange={(e) => setProjectData({ ...projectData, image: e.target.value, })} />
                     </FormElement>
                     <FormGroup>
                         <FormElement>
@@ -102,8 +157,20 @@ export default function AddProjectPage() {
                         <Input id="tags" placeholder="e-commerce,frontend,etc.." value={projectData.tags.join(",")} onChange={(e) => setProjectData({ ...projectData, tags: e.target.value.split(","), })} />
                     </FormElement>
                     <FormGroup>
+                        <Alert nature={state.alert.type} open={state.alert.open}>{state.alert.message}</Alert>
+                        {state.loading ? <Loader /> : null}
                         <Button type="submit" nature="primary">Submit Projects</Button>
-                        <Button type="reset" nature="danger">Reset All</Button>
+                        <Button type="reset" nature="danger" onClick={() => setProjectData({
+                            title: '',
+                            description: '',
+                            image: " ",
+                            link: {
+                                title: "",
+                                url: ""
+                            },
+                            github: '',
+                            tags: []
+                        })}>Reset All</Button>
                         <Button as={Link} href="/admin/projects" nature="warning" size="sm">Cancel</Button>
                     </FormGroup>
                 </Card>

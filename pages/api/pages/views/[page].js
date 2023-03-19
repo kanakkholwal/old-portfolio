@@ -4,21 +4,18 @@ import dbConnect from "lib/dbConnect";
 
 
 
-handler.get(getViews).post(postViews);
-
-async function getViews(req, res, next) {
-
-
-
+export default handler.get(async (req, res, next) => {
     try {
+
         await dbConnect();
+
         const { page, title } = req.query;
 
 
         if (!page)
             return res.status(400).json({ error: "Bad request", message: "Page name is required" })
 
-        let pageView = await PageView.findOne({ page });
+        let pageView = await PageView.findOne({ page: page });
 
         if (!pageView) {
             pageView = await PageView.create({ title: title || "unknown page", page, count: 1 });
@@ -34,9 +31,7 @@ async function getViews(req, res, next) {
         return res.status(500).json({ error: "Internal server error while getting views", message: error.message });
     }
 
-}
-async function postViews(req, res, next) {
-
+}).post(async (req, res, next) => {
     try {
         await dbConnect();
 
@@ -64,6 +59,8 @@ async function postViews(req, res, next) {
         return res.status(500).json({ error: "Internal server error while registering view", message: error.message });
     }
 
-}
+});
 
-export default handler
+
+
+// Path: pages/api/pages/views/index.js

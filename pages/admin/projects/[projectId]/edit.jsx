@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { hasToken, getUser } from 'lib/checkUser'
 import EditProjectPage from 'pages/admin/editProject';
 

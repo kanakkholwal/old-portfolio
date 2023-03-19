@@ -21,7 +21,6 @@ const UserSchema = new mongoose.Schema({
     },
     profileURl: {
         type: String,
-        
     },
     password: {
         type: String,

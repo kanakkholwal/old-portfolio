@@ -81,6 +81,12 @@ export default function Header({ }) {
             document.body.querySelector("#main_wrapper").classList.add('isNotificationOpen');
             document.body.querySelector("#main_wrapper").classList.add('isSidenavOpen');
         }
+        else {
+            document.body.querySelector("#sidenav_panel").classList.remove('isOpen');
+            // document.body.querySelector("#notification_panel").classList.add('isOpen');
+            document.body.querySelector("#main_wrapper").classList.remove('isNotificationOpen');
+            document.body.querySelector("#main_wrapper").classList.remove('isSidenavOpen');
+        }
 
     }, [])
     return (

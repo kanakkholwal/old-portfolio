@@ -3,9 +3,12 @@ import { signOut, useSession } from 'next-auth/react';
 import Button from 'components/button';
 import NavLink from 'components/navLink';
 import { GrClose } from "react-icons/gr";
+import { BsPersonCheck } from "react-icons/bs";
+import { FiHome } from "react-icons/fi";
 import { MdLogout } from "react-icons/md";
 import { useRef } from "react";
-
+import HomeLink from 'next/link';
+import ProfileCard from './profileCard';
 
 const SideNavWrapper = styled.div`
 position: fixed;
@@ -71,7 +74,6 @@ padding: 0.5rem 0;
 const LinkList = styled.div`
 display:flex;
 flex-direction:column;
-gap:0.25rem;
 align-items:center;
 `;
 const Link = styled.a`
@@ -83,6 +85,7 @@ width:100%;
 transition: all 0.3s ease-in-out;
 padding: 0.25rem;
 border-radius: 5px;
+margin-bottom:0.25rem;
 
 &:hover,&.active{
     background-color: rgba(0, 0, 0, 0.1);
@@ -110,7 +113,12 @@ export default function SideNav({ links }) {
     return (
         <SideNavWrapper id="sidenav_panel" ref={sidenavRef}>
             <CloseButton onClick={() => sidenavRef.current.classList.toggle('isOpen')}><GrClose /></CloseButton>
-            <SideNavHeader>Hi ,<strong>{session?.user?.name}</strong> </SideNavHeader>
+            <SideNavHeader>
+                <ProfileCard user={session?.user} />
+                Hi ,<strong>{session?.user?.name}</strong>
+                <BsPersonCheck />
+            </SideNavHeader>
+            <Link as={HomeLink} href="/">  <FiHome />Home</Link>
             {links?.length > 0 ? <RecursiveLinkList links={links} /> : null}
             <LogoutButton as={Button} onClick={() => signOut()}>Sign Out <MdLogout /> </LogoutButton>
         </SideNavWrapper>

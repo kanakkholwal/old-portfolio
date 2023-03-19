@@ -9,6 +9,7 @@ import ProjectCard from 'components/admin/projectCard';
 import { Loader } from "components/Loader";
 import Link from 'next/link';
 import useFetch from 'hooks/useFetch';
+import { IoMdAdd } from 'react-icons/io';
 
 // import { useEffect, useState } from 'react';
 // import axios from 'axios';
@@ -42,7 +43,7 @@ export default function ProjectPage({ user }) {
                     <h3>
                         Your Projects ({response?.projects?.length})
                     </h3>
-                    <Button as={Link} href="/admin/projects/add" size="sm">Add Projects</Button>
+                    <Button as={Link} href="/admin/projects/add" size="sm" nature="link" > <IoMdAdd />Add Projects</Button>
                 </Header>
                 <Card>
                     {loading && <Loader size="48px" />}

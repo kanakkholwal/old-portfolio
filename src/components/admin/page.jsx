@@ -1,6 +1,6 @@
 import { MainWrapper, ContentWrapper } from "./wrapper";
 import SideNav from "./sidenav";
-import NotificationPanel from "./notification";
+// import NotificationPanel from "./notification";
 import Header from "./header";
 
 // icons
