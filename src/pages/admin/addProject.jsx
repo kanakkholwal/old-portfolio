@@ -93,7 +93,7 @@ export default function AddProjectPage({ user }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post('/api/admin/projects', { userId: user.id, project: projectData })
+        const response = await axios.post(`/api/users/${user.id}/projects/add`, { project: projectData })
         console.log(response);
     }
 

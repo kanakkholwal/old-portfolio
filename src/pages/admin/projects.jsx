@@ -23,13 +23,19 @@ justify-content: space-between;
 align-items: center;
 margin-bottom: 1rem;
 `;
+const CardWrapper = styled.div`
+display: flex;
+flex-wrap: wrap;
+gap: 1rem;
+
+`;
 
 // const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function ProjectPage({ user }) {
     // const [snackObj, SetSnackObj] = useState({ Message: "Some error Occurred", open: false });
 
-    const { response, loading, error } = useFetch(`/api/admin/projects?userId=${user.id}`)
+    const { response, loading, error } = useFetch(`/api/users/${user.id}/projects`)
 
 
 
@@ -48,10 +54,13 @@ export default function ProjectPage({ user }) {
                 <Card>
                     {loading && <Loader size="48px" />}
                     {response?.message && <p>{response?.message}</p>}
+                    {error?.message && <p>{error?.message}</p>}
                     {response?.projects?.length > 0 && <p style={{ textAlign: "center" }}><Badge>Showing {response?.projects?.length} Projects </Badge></p>}
                     {response?.projects?.length === 0 && <p>No Projects</p>}
-                    {response?.projects?.map((item, index) => (<ProjectCard key={index} project={item} />))}
-                </Card>
+                    <CardWrapper>
+                        {response?.projects?.map((item, index) => (<ProjectCard key={index} project={item} />))}
+                    </CardWrapper>
+                    ``   </Card>
 
 
 

@@ -47,7 +47,7 @@ export default function EditProjectPage({ user }) {
         _id: projectId,
         title: '',
         description: '',
-        image: "  ",
+        image: "",
         link: {
             title: "",
             url: ""
@@ -62,13 +62,14 @@ export default function EditProjectPage({ user }) {
             try {
 
 
-                await fetch(`/api/admin/projects?userId=${user.id}&projectId=${projectId}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-                        if (data.project) {
-                            setProjectData(data.project);
-                            setProjectTitle(data.project.title);
+                await axios(`/api/users/${user.id}/projects/${projectId}`)
+                    .then(({ data: response }) => {
+                        console.log(response);
+                        const { project } = response;
+
+                        if (project) {
+                            setProjectData(project);
+                            setProjectTitle(project.title);
                         }
                     }).catch(err => {
                         console.log(err);
@@ -82,11 +83,11 @@ export default function EditProjectPage({ user }) {
             }
 
         }
-        if (projectId && projectId !== "undefined" && projectId !== "null" && user.id && user.id !== "undefined" && user.id !== "null") {
+        if (projectId && user.id) {
             fetchProject();
         }
 
-    }, [projectId, user.id]);
+    }, []);
 
 
     const handleFiles = async (files) => {
@@ -159,7 +160,7 @@ export default function EditProjectPage({ user }) {
         e.preventDefault();
         setState({ ...state, loading: true });
         try {
-            await axios.put('/api/admin/projects', { userId: user.id, project: projectData })
+            await axios.put(`/api/users/${user.id}/projects/${projectId}/add`, { project: projectData })
                 .then(res => {
                     console.log(res);
                     if (res.data.success) {
