@@ -18,6 +18,7 @@ position: relative;
 img{
     width: 100%;
     height: auto;
+    max-width: 10rem;
     user-select:none;
     -webkit-user-drag: none;
     border-radius: 50%;
@@ -43,7 +44,7 @@ export default function ProfileCard({ user }) {
     return (
         <Card>
             <ImageContainer>
-                {user?.profileURl ? <Image src={user?.profileURl || " "} alt={user?.name} width={200} height={200} /> : null}
+                {user?.profileURl ? <Image src={user?.profileURl || " "} alt={user?.name} width={200} height={200} priority /> : null}
             </ImageContainer>
             <Name>{user?.name}</Name>
             <Email>{user?.email}

@@ -35,7 +35,8 @@ const Button = styled.button`
     ` : ""
   }
       
-    &> svg{
+  
+  &> svg{
   margin-inline: 0.5rem;
   font-size: inherit;
   line-height: inherit;

@@ -35,7 +35,7 @@ gap: 1rem;
 export default function ProjectPage({ user }) {
     // const [snackObj, SetSnackObj] = useState({ Message: "Some error Occurred", open: false });
 
-    const { response, loading, error } = useFetch(`/api/users/${user.id}/projects`)
+    const { response, loading, error } = useFetch(`/api/users/${user.id}/projects/all`)
 
 
 
@@ -60,7 +60,7 @@ export default function ProjectPage({ user }) {
                     <CardWrapper>
                         {response?.projects?.map((item, index) => (<ProjectCard key={index} project={item} />))}
                     </CardWrapper>
-                    ``   </Card>
+                </Card>
 
 
 

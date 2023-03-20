@@ -37,6 +37,9 @@ border-radius: 0.5rem;
 border:2px solid var(--border-color);
 cursor:pointer;
 width: max-content;
+max-width: 100%;
+width: max-content;
+max-width: fit-content;
 &:focus-within,&:hover,&:focus{ 
     border-color: var(--theme);
 }

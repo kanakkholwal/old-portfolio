@@ -9,7 +9,7 @@ import dbConnect from "lib/dbConnect";
 
 export default handler
     .use(hasTokenMiddleware)
-    .get(async (req, res) => {
+    .post(async (req, res) => {
         try {
             await dbConnect();
 

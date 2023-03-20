@@ -62,7 +62,9 @@ export default function EditProjectPage({ user }) {
             try {
 
 
-                await axios(`/api/users/${user.id}/projects/${projectId}`)
+                await axios(`/api/users/${user.id}/projects/${projectId}`, {
+                    method: "POST"
+                })
                     .then(({ data: response }) => {
                         console.log(response);
                         const { project } = response;

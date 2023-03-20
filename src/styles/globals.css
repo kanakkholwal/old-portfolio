@@ -280,7 +280,7 @@ img {
 
 svg {
   font: inherit;
-  stroke: currentcolor;
+  /* stroke: currentcolor; */
   color: inherit;
 }
 

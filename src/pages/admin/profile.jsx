@@ -3,6 +3,8 @@ import Head from 'next/head';
 import styled from 'styled-components';
 import Button from 'components/button';
 import Alert from 'components/alert';
+import Image from 'next/image';
+import Link from 'next/link';
 import { Loader } from 'components/Loader';
 import { Card } from 'components/card';
 import axios from 'axios';
@@ -133,36 +135,47 @@ export default function ProfilePage({ user: CurrentUser }) {
             </Head>
             <Header>
                 Edit your profile here
-                <Button size="sm" nature="link" onClick={handleSubmit}>Save Profile</Button>
             </Header>
             <Card>
-                <FormElement>
-                    <Label htmlFor="profile-pic">Upload a Picture</Label>
-                    <FileInput accept="image/*" id="profile-pic" onChange={handleChange} />
-                    <Label htmlFor="profile-pic-url">or Enter a url</Label>
-                    <Input placeholder="Enter or paste picture url from external source..." id="profile-pic-url" value={user?.profileURl} onChange={() => setUser({
-                        ...user,
-                        profileURl
-                    })} />
-                </FormElement>
+
+                <FormGroup style={{ justifyContent: "flex-start" }}>
+
+                    <FormElement>
+                        <div>
+                            {user.profileURl ? <Image width={150} height={150} alt={user.title} src={user.profileURl} style={{ maxHeight: "400px", }} /> : null}
+                        </div>
+                    </FormElement>
+                    <FormElement>
+                        <Label htmlFor="profile-pic">Upload a Picture</Label>
+                        <FileInput accept="image/*" id="profile-pic" onChange={handleChange} />
+                        <Label htmlFor="profile-pic-url">or Enter a url</Label>
+                        <Input placeholder="Enter or paste picture url from external source..." id="profile-pic-url" value={user?.profileURl} onChange={(e) => setUser({
+                            ...user,
+                            profileURl: e.target.value
+                        })} />
+                    </FormElement>
+                </FormGroup>
                 <FormElement>
                     <Label htmlFor="name">Your Name</Label>
-                    <Input placeholder="Enter your name." id="name" value={user?.name} onChange={() => setUser({
+                    <Input placeholder="Enter your name." id="name" value={user?.name} onChange={(e) => setUser({
                         ...user,
-                        name
+                        name: e.target.value
                     })} />
                 </FormElement>
                 <FormElement>
                     <Label htmlFor="profile-pic-url">Your Name</Label>
-                    <Input placeholder="email" type="email" id="email" value={user?.email} onChange={() => setUser({
+                    <Input placeholder="email" type="email" id="email" value={user?.email} onChange={(e) => setUser({
                         ...user,
-                        email
+                        email: e.target.value
                     })} />
                 </FormElement>
 
                 <FormGroup>
                     <Alert nature={state.alert.type} open={state.alert.open}>{state.alert.message}</Alert>
                     {state.loading ? <Loader /> : null}
+                    <Button size="sm" nature="primary" onClick={handleSubmit}>Save Profile</Button>
+                    <Button size="sm" nature="danger" as={Link} href="/admin/dashboard">Cancel</Button>
+
                 </FormGroup>
             </Card>
         </AdminPage>)
