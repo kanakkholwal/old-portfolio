@@ -35,7 +35,7 @@ gap: 1rem;
 export default function ProjectPage({ user }) {
     // const [snackObj, SetSnackObj] = useState({ Message: "Some error Occurred", open: false });
 
-    const { response, loading, error } = useFetch(`/api/users/${user.id}/projects/all`)
+    const { response, loading, error } = useFetch(`/api/users/${user.id}/projects/get`)
 
 
 
@@ -47,7 +47,7 @@ export default function ProjectPage({ user }) {
             <AdminPage>
                 <Header >
                     <h3>
-                        Your Projects ({response?.projects?.length})
+                        Your Projects ({response?.projects?.length || "0"})
                     </h3>
                     <Button as={Link} href="/admin/projects/add" size="sm" nature="link" > <IoMdAdd />Add Projects</Button>
                 </Header>

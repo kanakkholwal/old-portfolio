@@ -18,11 +18,13 @@ export default function ViewCounter({ slug, title, userId = 'Anonymous' }) {
         const registerView = async () =>
             await fetch(`/api/pages/views/${pageName}`, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+
                 },
                 method: 'POST',
                 body: JSON.stringify({
-                    title: title || "unknown page", userId
+                    title: title || "unknown page",
+                    userId
                 })
             })
         registerView();

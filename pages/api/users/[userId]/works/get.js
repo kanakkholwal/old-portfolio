@@ -5,8 +5,8 @@ import dbConnect from "lib/dbConnect";
 
 
 
-// Path: pages/api/[userId]/projects/index.js
-// Returns all projects for a user
+// Path: pages/api/[userId]/works/get.js
+// Returns all works for a user
 
 export default handler
     .use(hasTokenMiddleware)
@@ -23,12 +23,12 @@ export default handler
                 return res.status(404).json({ message: 'User not found!' })
             }
 
-            if (!user.projects || user.projects.length === 0) {
-                return res.status(404).json({ message: 'User has no projects!' })
+            if (!user.works || user.works.length === 0) {
+                return res.status(404).json({ message: 'User has no works!' })
             }
 
 
-            return res.status(200).json({ message: 'Projects fetched Successfully!', projects: user.projects })
+            return res.status(200).json({ message: 'works fetched Successfully!', works: user.works })
         }
         catch (err) {
             console.log(err);

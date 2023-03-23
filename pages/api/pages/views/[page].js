@@ -4,62 +4,65 @@ import dbConnect from "lib/dbConnect";
 
 
 
-export default handler.get(async (req, res, next) => {
-    try {
+export default handler
+    .get(async (req, res, next) => {
+        try {
 
-        await dbConnect();
+            await dbConnect();
 
-        const { page, title } = req.query;
+            const { page } = req.query;
+            const { title } = req.header;
 
 
-        if (!page)
-            return res.status(400).json({ error: "Bad request", message: "Page name is required" })
+            if (!page)
+                return res.status(400).json({ error: "Bad request", message: "Page name is required" })
 
-        let pageView = await PageView.findOne({ page: page });
+            let pageView = await PageView.findOne({ page: page });
 
-        if (!pageView) {
-            pageView = await PageView.create({ title: title || "unknown page", page, count: 1 });
+            if (!pageView) {
+                pageView = await PageView.create({ title: title || "unknown page", page, count: 1 });
 
-            return res.status(200).json({ message: "Page added to DB", total: pageView.count })
-        }
-        else
-            return res.status(200).json({ message: "Page view received", total: pageView.count })
+                return res.status(200).json({ message: "Page added to DB", total: pageView.count })
+            }
+            else
+                return res.status(200).json({ message: "Page view received", total: pageView.count })
 
-    } catch (error) {
+        } catch (error) {
 
-        console.log(error);
-        return res.status(500).json({ error: "Internal server error while getting views", message: error.message });
-    }
-
-}).post(async (req, res, next) => {
-    try {
-        await dbConnect();
-
-        const { page } = req.query;
-        const { title, userId } = req.body;
-
-        let pageView = await PageView.findOne({ page });
-
-        if (!pageView) {
-            pageView = await PageView.create({ title: title || "unknown page", page, count: 1, visitors: [userId || "Anonymous"] });
-
-            return res.status(200).json({ message: "Page added to DB", total: pageView.count, type: userId ? "Authenticated" : "Anonymous" })
+            console.log(error);
+            return res.status(500).json({ error: "Internal server error while getting views", message: error.message });
         }
 
-        pageView.count += 1;
-        pageView.visitors.push(userId || "Anonymous")
+    })
+    .post(async (req, res, next) => {
+        try {
+            await dbConnect();
 
-        await pageView.save();
+            const { page } = req.query;
+            const { title, userId } = req.body;
 
-        return res.status(200).json({ message: "Page view incremented", total: pageView.count, type: userId ? "Authenticated" : "Anonymous" })
+            let pageView = await PageView.findOne({ page });
 
-    } catch (error) {
+            if (!pageView) {
+                pageView = await PageView.create({ title: title || "unknown page", page, count: 1, visitors: [userId || "Anonymous"] });
 
-        console.log(error);
-        return res.status(500).json({ error: "Internal server error while registering view", message: error.message });
-    }
+                return res.status(200).json({ message: "Page added to DB", total: pageView.count, type: userId ? "Authenticated" : "Anonymous" })
+            }
 
-});
+            pageView.count += 1;
+            pageView.visitors.push(userId || "Anonymous")
+
+            await pageView.save();
+
+            return res.status(200).json({ message: "Page view incremented", total: pageView.count, type: userId ? "Authenticated" : "Anonymous" })
+
+        } catch (error) {
+
+            console.log(error);
+            return res.status(500).json({ error: "Internal server error while registering view", message: error.message });
+        }
+
+    });
 
 
 
