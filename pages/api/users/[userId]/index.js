@@ -1,10 +1,11 @@
-import handler from 'lib/handler';
 import User from "models/user";
 import dbConnect from "lib/dbConnect";
 import { hasTokenMiddleware } from 'middleware/checkUser';
+import handler from 'lib/handler';
+import nextConnect from "next-connect";
 
 
-export default handler.use(hasTokenMiddleware).get(async (req, res) => {
+export default nextConnect(handler).use(hasTokenMiddleware).get(async (req, res) => {
     try {
         await dbConnect();
 

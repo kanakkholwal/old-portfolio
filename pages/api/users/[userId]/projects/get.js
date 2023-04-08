@@ -1,15 +1,17 @@
-import handler from 'lib/handler';
 import { hasTokenMiddleware } from 'middleware/checkUser';
 import User from "models/user";
 import dbConnect from "lib/dbConnect";
+import handler from 'lib/handler';
+import nextConnect from "next-connect";
 
 
 
 // Path: pages/api/[userId]/projects/get.js
 // Returns all projects for a user
 
-export default handler
-    .use(hasTokenMiddleware)
+
+
+export default nextConnect(handler).use(hasTokenMiddleware)
     .get(async (req, res) => {
         try {
             await dbConnect();

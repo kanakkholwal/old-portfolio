@@ -1,13 +1,16 @@
-import handler from 'lib/handler';
 import { hasTokenMiddleware } from 'middleware/checkUser';
 import User from "models/user";
 import dbConnect from "lib/dbConnect";
+import handler from 'lib/handler';
+import nextConnect from "next-connect";
 
 
 // Path: pages/api/[userId]/projects/[projectId]/index.js
 // Returns Project Operations { get , update , delete} for a user
 
-export default handler
+
+
+export default nextConnect(handler)
     .use(hasTokenMiddleware)
     .post(async (req, res) => {
         try {

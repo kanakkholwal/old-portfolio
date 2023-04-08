@@ -1,20 +1,22 @@
-import dbConnect from "lib/dbConnect";
-import User from "models/user";
+import User from 'models/user';
+import dbConnect from 'lib/dbConnect';
+import { hasTokenMiddleware } from 'lib/checkUser';
+import handler from 'lib/handler';
+import nextConnect from "next-connect";
 
 
-export default async function handler(req, res) {
-    await dbConnect();
-
-    const { user } = req.body;
-
-    if (req.method === "PUT") {
+export default nextConnect(handler).use(hasTokenMiddleware)
+    .put(async (req, res) => {
+        const { user } = req.body;
 
 
         if (!user.id)
             return res.status(401).json({
                 message: 'User Id is required',
             })
+
         try {
+            await dbConnect();
             const currentUser = await User.findById(user.id);
 
             if (!currentUser) {
@@ -38,8 +40,6 @@ export default async function handler(req, res) {
                 message: error.message || " Something went wrong",
             })
         }
-    } else {
-        res.status(424).json({ message: "Invalid method!" });
-    }
-}
+
+    })
 
