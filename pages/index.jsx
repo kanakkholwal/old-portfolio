@@ -12,7 +12,7 @@ export default function Home() {
     "@type": "WebSite",
     "name": "Kanak Kholwal",
     "alternateName": "Kanak Kholwal's Portfolio",
-    "url": "https://kanakkholwal.eu.org/"
+    "url": "https://kanakkholwal.eu.org"
   }
 
   return (
@@ -33,7 +33,6 @@ export default function Home() {
       </Head>
 
       <main>
-        {/* <NavBar /> */}
         <Header
           imageSrc="https://kkupgrader.eu.org/assets/images/me.png?w=640&q=100"
           title="Kanak Kholwal"
@@ -47,7 +46,7 @@ export default function Home() {
             ]
           }
         />
-        <ViewCounter slug={"portfolio"} title="Portfolio" />
+        {/* <ViewCounter slug={"portfolio"} title="Portfolio" /> */}
         <Education
           educationExperiences={[
 
