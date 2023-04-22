@@ -110,7 +110,7 @@ const Patterns = () => (
 const ContentArea = styled.div`
 z-index:2;
 height: inherit;
-max-width: 1720px;
+width: clamp(100px,100%,1400px);
 display:flex;
 align-items:stretch;
 justify-content:space-between;
@@ -213,6 +213,7 @@ backdrop-filter: blur(25px);
 background: rgba(255, 255, 255, 0.1);
 width:100%;
 margin-inline:auto;
+z-index:9;
 svg{
     color:inherit;
 }
@@ -272,6 +273,9 @@ border:2px solid #eee;
     &:hover{
         opacity:0.98;
         border-color:#fff;
+        svg{
+            animation:rubberBand 1s ease-in-out;
+        }
     }
 }
 display:flex;
