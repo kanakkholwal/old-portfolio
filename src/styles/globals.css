@@ -352,7 +352,14 @@ span,
   display: inline-block;
 }
 
-
+.scroll-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  will-change: transform;
+}
 .x-mandatory {
   scroll-snap-type: x mandatory;
   overflow-x: auto;

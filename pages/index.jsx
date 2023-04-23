@@ -4,7 +4,6 @@ import Education from 'components/sections/education'
 import Projects from 'components/sections/projects'
 import Works from 'components/sections/works'
 import Skills from 'components/sections/skills'
-
 import styled from 'styled-components'
 
 const Section = styled.section`
@@ -44,7 +43,10 @@ padding:0.5rem 1rem
 `;
 
 
+
 export default function Home() {
+
+
 
   const siteData = {
     "@context": "http://schema.org/",
@@ -60,9 +62,9 @@ export default function Home() {
     resumeUrl: "https://www.overleaf.com/read/ytwvxdjrprps",
     social:
       [
-        { name: "LinkedIn", url: "https://www.linkedin.com/in/kanak-kholwal/" },
+        { name: "LinkedIn", url: "https://www.linkedin.com/in/kanak-kholwal" },
         { name: "Github", url: "https://github.com/KKUPGRADER" },
-        { name: "Instagram", url: "https://www.instagram.com/kanakkholwal/" },
+        { name: "Instagram", url: "https://www.instagram.com/kanakkholwal" },
       ]
 
   }
@@ -85,7 +87,7 @@ export default function Home() {
 
       <main>
         <Header {...data} />
-        <Section>
+        <Section >
           <SectionInfo>
             <h2>About Me</h2>
           </SectionInfo>
@@ -94,7 +96,7 @@ export default function Home() {
 
           </SectionContent>
         </Section>
-        <Section>
+        <Section >
           <SectionInfo>
             <h2>
               Experience</h2>
@@ -121,7 +123,7 @@ export default function Home() {
 
           </SectionContent>
         </Section>
-        <Section>
+        <Section >
           <SectionInfo>
             <h2>Education</h2>
           </SectionInfo>
@@ -140,27 +142,82 @@ export default function Home() {
             />
           </SectionContent>
         </Section>
-        <Section>
+        <Section >
           <SectionInfo>
             <h2>Projects</h2>
           </SectionInfo>
           <SectionContent>
             <Projects
               projects={[
-              {
-                  title: "Web Tools Project",
- 
-                  description: ``
-                }
-              ]}
+                {
+                  category: "ExpressJs,ReactJs ,SASS ,Firebase",
+                  title: "College Result Website",
+                  description: "To display college results across all majors and years with extended functionalities.",
+                  link: "https://nith-result.web.app/",
+                  image: "/assets/images/result-site.webp",
+                  theme: {
+                    color: {
+                      light: "#a07cc5",
+                      dark: "#f4e9ff"
+                    },
+                    bg: {
+                      light: "#f8f5fb",
+                      dark: "#6658d3"
+                    }
+                  }
+                },
+                {
+                  category: "SASS , VanillaJs",
+                  title: "Web UI Component Library ",
+                  description: "To develop an open-source web component library for quick development .",
+                  link: "https://genesis-ui.netlify.app/",
+                  image: "/assets/images/web-design.svg",
+                  theme: {
+                    color: {
+                      light: "#3f78e0",
+                      dark: "#0a0e13"
+                    },
+                    bg: {
+                      light: "#f1f5fd",
+                      dark: "#3f78e0"
+                    }
+                  }
+                },
+
+                {
+                  category: "SASS , NextJs ,ReactJs",
+                  title: "Web Tools(beta)",
+                  description: "To develop web tools for websites for basic web development operations like SEO and image conversion,etc.",
+                  link: "/tools",
+                  image: "/assets/images/web-tools.svg",
+                  theme: {
+                    color: {
+                      light: "rgb(0, 82, 73)",
+                      dark: "rgb(0, 82, 73)"
+                    },
+                    bg: {
+                      light: "#d4f3e1",
+                      dark: "rgb(47 188 106)"
+                    }
+                  }
+                }]}
 
             />
+          </SectionContent>
+        </Section>
+        <Section 
+  
+          >
+          <SectionInfo>
+            <h2>Skills</h2>
+          </SectionInfo>
+          <SectionContent style={{ width: "100%" }}>
+            <Skills />
           </SectionContent>
         </Section>
 
 
 
-        <Skills />
       </main>
     </>
   )
