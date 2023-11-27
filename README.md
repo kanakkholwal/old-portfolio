@@ -2,16 +2,16 @@
 # 💫 About Me:
 🔭  looking to collaborate on Open Source Projects<br>🤝 currently learning Node JS<br>💬 Ask me about Web Dev<br>
 <br>
-[![](https://visitcount.itsvg.in/api?id=kkupgrader&label=Profile%20Views&color=0&icon=1&pretty=true)](https://visitcount.itsvg.in)
+[![](https://visitcount.itsvg.in/api?id=kanakkholwal&label=Profile%20Views&color=0&icon=1&pretty=true)](https://visitcount.itsvg.in)
 # 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=kkupgrader&theme=react&hide_border=false&include_all_commits=false&count_private=false)<br/>
-![](https://github-readme-streak-stats.herokuapp.com/?user=kkupgrader&theme=react&hide_border=false)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=kkupgrader&theme=react&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
+![](https://github-readme-stats.vercel.app/api?username=kanakkholwal&theme=react&hide_border=false&include_all_commits=false&count_private=false)<br/>
+![](https://github-readme-streak-stats.herokuapp.com/?user=kanakkholwal&theme=react&hide_border=false)<br/>
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=kanakkholwal&theme=react&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
 ## 🏆 GitHub Trophies
-![](https://github-profile-trophy.vercel.app/?username=kkupgrader&theme=dark_dimmed&no-frame=true&no-bg=false&margin-w=4)
+![](https://github-profile-trophy.vercel.app/?username=kanakkholwal&theme=dark_dimmed&no-frame=true&no-bg=false&margin-w=4)
 
 ## 🌐 Socials:
-[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/kanakkholwal) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/kanak-kholwal) [![Pinterest](https://img.shields.io/badge/Pinterest-%23E60023.svg?logo=Pinterest&logoColor=white)](https://pinterest.com/kkupgrader) [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?logo=Twitter&logoColor=white)](https://twitter.com/kanakkholwal) 
+[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/kanakkholwal) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/kanak-kholwal) [![Pinterest](https://img.shields.io/badge/Pinterest-%23E60023.svg?logo=Pinterest&logoColor=white)](https://pinterest.com/kanakkholwal) [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?logo=Twitter&logoColor=white)](https://twitter.com/kanakkholwal) 
 
 
 
